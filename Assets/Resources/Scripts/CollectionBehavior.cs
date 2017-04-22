@@ -64,4 +64,13 @@ public class CollectionBehavior : MonoBehaviour {
             return Color.green;
         return Color.white;
     }
+
+    public static int GetZoomFactor(Key k)
+    {
+        if (Key.Blue == k)
+            return 1;
+        if (Key.Green == k)
+            return -1;
+        return 0;
+    }
 }
