@@ -74,8 +74,11 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		var randvec = Random.insideUnitCircle;
 		randvec = Random.Range(this.transform.localScale.x / 2, this.transform.localScale.x / 1.5f ) * randvec ;
 
-		go.transform.position = randvec;
-		go.transform.localScale = 0.2f * Player.transform.lossyScale;
+		go.transform.position = randvec;	
+
+		var psize = Player.transform.lossyScale.x;
+		var randscale = Random.Range(psize / 10, psize *1.1f);
+		go.transform.localScale = new Vector3(randscale, randscale, randscale);
 
 		//Bookeeping
 		_lastSchoolerSpawnTime = Time.timeSinceLevelLoad;
