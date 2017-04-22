@@ -15,14 +15,18 @@ public class SimpleKillOnTouch : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D c)
 	{
-		//print("try to kill player");
-		//// IF: THIS PORTAL IS AN ENTRANCE
-		//// IF: GAMEOBJECT TAG IS PLAYER
-		//if (c.gameObject.tag.Contains("Player"))
-		//{
-		//	print("kill player");
-		//	// do kill player
-		//}
+		if (c.gameObject.tag.Contains("Player"))
+		{
+			
+			var thisscale = this.gameObject.transform.localScale.x;
+			var otherscale = c.gameObject.transform.localScale.x;
+
+			if (thisscale > otherscale)
+			{
+				print("kill player");
+				c.gameObject.SendMessage("kill");
+			}
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D c)
@@ -30,12 +34,12 @@ public class SimpleKillOnTouch : MonoBehaviour {
 		var thisscale = this.gameObject.transform.localScale.x;
 		var otherscale = c.gameObject.transform.localScale.x;
 
-		if(thisscale > otherscale)
+		if (thisscale > otherscale)
 		{
 			print("kill player with trigger");
 
 			c.SendMessage("kill");
 		}
-		
+
 	}
 }

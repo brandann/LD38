@@ -6,21 +6,57 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	public GameObject SpawnedBlockPrefab;
 	public GameObject Player;
 
-	float starttime = 0;
-	public float duration;
-	
+	float EnemyStarttime = 0;
+	public float EnemyDuration;
+	public float EnemySpeed;
+
+	public GameObject CollectionBlockPrefab;
+	float CollectionStartTime = 0;
+	public float CollectionDuration;
+
+	public GameObject WallBlockPrefab;
+	float WallStartTime = 0;
+	public float WallDuration;
+
 	// Use this for initialization
 	void Start () {
-		starttime = Time.timeSinceLevelLoad;
+		EnemyStarttime = Time.timeSinceLevelLoad;
+		CollectionStartTime = Time.timeSinceLevelLoad;
+		WallStartTime = Time.timeSinceLevelLoad;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if((Time.timeSinceLevelLoad - starttime) > duration)
+		if((Time.timeSinceLevelLoad - EnemyStarttime) > EnemyDuration)
 		{
 			SpawnBlock();
-			starttime = Time.timeSinceLevelLoad;
+			EnemyStarttime = Time.timeSinceLevelLoad;
 		}
+
+		if ((Time.timeSinceLevelLoad - CollectionStartTime) > CollectionDuration)
+		{
+			SpawnCollection();
+			CollectionStartTime = Time.timeSinceLevelLoad;
+		}
+
+		if ((Time.timeSinceLevelLoad - WallStartTime) > WallDuration)
+		{
+			SpawnWall();
+			WallStartTime = Time.timeSinceLevelLoad;
+		}
+	}
+
+	private void SpawnWall()
+	{
+		var go = Instantiate(WallBlockPrefab);
+		var randvec = Random.insideUnitCircle;
+		randvec = Random.Range(this.transform.localScale.x / 5, this.transform.localScale.x) * randvec;
+
+		go.transform.position = randvec;
+
+		var psize = Player.transform.lossyScale.x;
+		var randscale = Random.Range(psize / 10, psize * 5);
+		go.transform.localScale = new Vector3(randscale, randscale, randscale);
 	}
 
 	private void SpawnBlock()
@@ -39,6 +75,19 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 		var up = Player.transform.position - go.transform.position;
 		go.transform.up = up;
-		go.GetComponent<Rigidbody2D>().velocity = up * 1;
+		go.GetComponent<Rigidbody2D>().velocity = up * EnemySpeed * Player.transform.localScale.x;
+	}
+
+	private void SpawnCollection()
+	{
+		var go = Instantiate(CollectionBlockPrefab);
+		var randvec = Random.insideUnitCircle;
+		randvec = Random.Range(this.transform.localScale.x/5, this.transform.localScale.x) * randvec;
+		
+		go.transform.position = randvec;
+
+		var psize = Player.transform.lossyScale.x;
+		var randscale = Random.Range(psize / 10, psize * 5);
+		go.transform.localScale = new Vector3(randscale, randscale, randscale);
 	}
 }
