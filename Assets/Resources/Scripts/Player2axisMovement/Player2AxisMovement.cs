@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Player2AxisMovement : MonoBehaviour
 {
@@ -48,8 +49,9 @@ public class Player2AxisMovement : MonoBehaviour
 		bgo.transform.position = this.transform.position;
 		var bm = bgo.GetComponent<BurstManager>();
 		bm.MakeBurst(30, Color.white, this.transform.position, this.transform.localScale.x);
-
+		GameObject.Find("Main Camera").GetComponent<CameraManager>().restartAfter3Seconds();
 		Destroy(this.gameObject);
-
 	}
+
+
 }

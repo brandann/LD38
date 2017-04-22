@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+	public enum scenes { Main = 0, PlayerInChangingWorld = 1, ScaleSquares = 2}
 	#region ButtonPress
 	public void PlayButtonPressed()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((int) scenes.PlayerInChangingWorld);
     }
 
     public void QuitButtonPressed()
