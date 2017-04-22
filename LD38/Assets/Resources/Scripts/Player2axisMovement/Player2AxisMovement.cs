@@ -39,4 +39,17 @@ public class Player2AxisMovement : MonoBehaviour
 		print("I got scaled: " + s);
 		this._speed *= s;
 	}
+
+	public GameObject burstPrefab;
+
+	public void kill()
+	{
+		var bgo = Instantiate(burstPrefab);
+		bgo.transform.position = this.transform.position;
+		var bm = bgo.GetComponent<BurstManager>();
+		bm.MakeBurst(30, Color.white, this.transform.position, this.transform.localScale.x);
+
+		Destroy(this.gameObject);
+
+	}
 }
