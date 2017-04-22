@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class SimpleBlockSpawner : MonoBehaviour {
 	
@@ -19,9 +18,6 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	public GameObject WallBlockPrefab;
 	float WallStartTime = 0;
 	public float WallDuration;
-
-    public Text scoreText;
-    public Text NotificationText;
 
 	#region Schooler Enemy
 	public GameObject SchoolingEnemyPrefab;

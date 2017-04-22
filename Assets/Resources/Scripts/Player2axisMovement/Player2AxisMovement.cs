@@ -93,13 +93,45 @@ public class Player2AxisMovement : MonoBehaviour
             var bm = bgo.GetComponent<BurstManager>();
             bm.MakeBurst(10, CollectionBehavior.GetKeyColor(key), collectionposition, c.gameObject.transform.localScale.x);
 
+            
+
             if(CollectionBehavior.Key.Blue == key)
             {
-                NotificationText.text = "You found a blue key. go find a blue gate!";
+                var r = Random.Range(0, 4);
+                switch (r)
+                {
+                    case 0:
+                        NotificationText.text = "You found a blue key. go find a blue gate!";
+                        break;
+                    case 1:
+                        NotificationText.text = "Why so blue?";
+                        break;
+                    case 2:
+                        NotificationText.text = "Whats this? A blue key? for me?!";
+                        break;
+                    case 3:
+                        NotificationText.text = "";
+                        break;
+                }
             }
             else if (CollectionBehavior.Key.Green == key)
             {
-                NotificationText.text = "You found a green key. go find a green gate!";
+                var r = Random.Range(0, 4);
+                switch (r)
+                {
+                    case 0:
+                        NotificationText.text = "You found a green key. go find a green gate!";
+                        break;
+                    case 1:
+                        NotificationText.text = "This green key will unlock a blue gate! MADE YOU LOOK! HAHAHA";
+                        break;
+                    case 2:
+                        NotificationText.text = "rawr? wrong game? oh, just find the gate and get this over...";
+                        break;
+                    case 3:
+                        NotificationText.text = "";
+                        break;
+                }
             }
         }
 
@@ -129,7 +161,6 @@ public class Player2AxisMovement : MonoBehaviour
                     NotificationText.text = "One step closer to greatness!";
                     break;
             }
-            
         }
     }
 

@@ -26,6 +26,24 @@ public class GoalBoarder : MonoBehaviour {
             {
                 print("Goal is key");
                 go.ResetKey();
+
+                var r = Random.Range(0, 4);
+                switch (r)
+                {
+                    case 0:
+                        go.NotificationText.text = "MY POWER!!!!!! find more keys minion";
+                        break;
+                    case 1:
+                        go.NotificationText.text = "As is sit here i wonder, where might I find more keys?";
+                        break;
+                    case 2:
+                        go.NotificationText.text = "no keys, no gold, no fun";
+                        break;
+                    case 3:
+                        go.NotificationText.text = "";
+                        break;
+                }
+
                 Destroy(this.gameObject);
             }
         }
