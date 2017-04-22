@@ -7,6 +7,7 @@ public class Player2AxisMovement : MonoBehaviour
     private float _speed = 12;
     private Vector3 mStartingPosition;
     private Vector3 mVelocity;
+    private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
 
     void Start()
     {
@@ -38,6 +39,9 @@ public class Player2AxisMovement : MonoBehaviour
 	public void scaleme(float s)
 	{
 		print("I got scaled: " + s);
+        var size = this.transform.localScale.x * s;
+        size = Mathf.Clamp(size, .01f, 2);
+        this.transform.localScale = new Vector3(size,size,size);
 		this._speed *= s;
 	}
 
@@ -53,5 +57,37 @@ public class Player2AxisMovement : MonoBehaviour
 		Destroy(this.gameObject);
 	}
 
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        if(c.gameObject.tag == "Collection")
+        {
+            var colgo = c.gameObject.GetComponent<CollectionBehavior>();
+            var key = colgo.GetKey();
+            this.GetComponent<SpriteRenderer>().color = CollectionBehavior.GetKeyColor(key);
+            this.key = key;
+            print("I became a: " + key.ToString());
+            var collectionposition = c.gameObject.transform.position;
+            var collectionscale = c.gameObject.transform.localScale.x;
+            Destroy(c.gameObject);
 
+            var bgo = Instantiate(burstPrefab);
+            bgo.transform.position = collectionposition;
+            var bm = bgo.GetComponent<BurstManager>();
+            bm.MakeBurst(10, CollectionBehavior.GetKeyColor(key), collectionposition, c.gameObject.transform.localScale.x);
+        }
+    }
+
+    private CollectionBehavior.Key _key = CollectionBehavior.Key.White;
+    public CollectionBehavior.Key key 
+    {
+        get
+        {
+            return _key;
+        }
+        set
+        {
+            this._key = value;
+            this.GetComponent<SpriteRenderer>().color = CollectionBehavior.GetKeyColor(value);
+        }
+    }
 }
