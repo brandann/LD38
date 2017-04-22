@@ -8,6 +8,7 @@ public class Player2AxisMovement : MonoBehaviour
     private Vector3 mStartingPosition;
     private Vector3 mVelocity;
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
+    public bool zoomoncollection;
 
     void Start()
     {
@@ -68,6 +69,16 @@ public class Player2AxisMovement : MonoBehaviour
             print("I became a: " + key.ToString());
             var collectionposition = c.gameObject.transform.position;
             var collectionscale = c.gameObject.transform.localScale.x;
+
+            if(zoomoncollection)
+            {
+                var factor = CollectionBehavior.GetZoomFactor(key);
+                if (factor == 1)
+                    GameObject.Find("Main Camera").GetComponent<SimpleZoom>().ZoomOut();
+                if (factor == -1)
+                    GameObject.Find("Main Camera").GetComponent<SimpleZoom>().ZoomIn();
+            }
+
             Destroy(c.gameObject);
 
             var bgo = Instantiate(burstPrefab);

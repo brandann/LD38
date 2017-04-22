@@ -26,7 +26,7 @@ public class SimpleZoom : MonoBehaviour {
         zoomUI.value =this.GetComponent<Camera>().orthographicSize / CameraMax;
 	}
 
-	private void ZoomOut()
+	public void ZoomOut()
 	{
 		var cam = this.GetComponent<Camera>();
         var s = Mathf.Clamp(cam.orthographicSize * .9f, CameraMin, CameraMax);
@@ -35,7 +35,7 @@ public class SimpleZoom : MonoBehaviour {
         UpdateSlider();
 	}
 
-	private void ZoomIn()
+	public void ZoomIn()
 	{
 		var cam = this.GetComponent<Camera>();
         var s = Mathf.Clamp(cam.orthographicSize * 1.1f, CameraMin, CameraMax);
