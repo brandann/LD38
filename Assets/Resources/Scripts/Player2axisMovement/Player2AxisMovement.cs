@@ -43,7 +43,7 @@ public class Player2AxisMovement : MonoBehaviour
         var size = this.transform.localScale.x * s;
         size = Mathf.Clamp(size, .01f, 2);
         this.transform.localScale = new Vector3(size,size,size);
-		this._speed *= s;
+        this._speed = 12 * size;
 	}
 
 	public GameObject burstPrefab;
@@ -86,6 +86,16 @@ public class Player2AxisMovement : MonoBehaviour
             var bm = bgo.GetComponent<BurstManager>();
             bm.MakeBurst(10, CollectionBehavior.GetKeyColor(key), collectionposition, c.gameObject.transform.localScale.x);
         }
+
+        if (c.gameObject.tag == "Goal")
+        {
+            var bgo = Instantiate(burstPrefab);
+            bgo.transform.position = c.gameObject.transform.position;
+            var bm = bgo.GetComponent<BurstManager>();
+            bm.MakeBurst(10, Color.yellow, c.gameObject.transform.position, c.gameObject.transform.localScale.x);
+
+            Destroy(c.gameObject);
+        }
     }
 
     private CollectionBehavior.Key _key = CollectionBehavior.Key.White;
@@ -100,5 +110,10 @@ public class Player2AxisMovement : MonoBehaviour
             this._key = value;
             this.GetComponent<SpriteRenderer>().color = CollectionBehavior.GetKeyColor(value);
         }
+    }
+
+    public void ResetKey()
+    {
+        this.key = CollectionBehavior.Key.White;
     }
 }
