@@ -11,9 +11,10 @@ public class StayOnObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(mTargetObject == null)
-        {
             return;
-        }
+
+		if (!toggle)
+			return;
         
         // KEEP THIS TRANSFORM AT THE TARGET POSITION
         // -10 IS FOR THE CAMERA TO KEEP THE CAMERA AT THE
@@ -22,5 +23,12 @@ public class StayOnObject : MonoBehaviour {
             mTargetObject.transform.position.x,
             mTargetObject.transform.position.y,
             -10);
+	}
+
+	bool toggle = true;
+
+	public void ToggleStay()
+	{
+		toggle = !toggle;
 	}
 }
