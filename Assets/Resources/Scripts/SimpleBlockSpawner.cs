@@ -7,7 +7,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	public GameObject Player;
 
 	float starttime = 0;
-	float duration = 2;
+	public float duration;
 	
 	// Use this for initialization
 	void Start () {
