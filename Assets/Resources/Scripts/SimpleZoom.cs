@@ -22,18 +22,16 @@ public class SimpleZoom : MonoBehaviour {
 	private void ZoomOut()
 	{
 		var cam = this.GetComponent<Camera>();
-		if (null != cam)
-			cam.orthographicSize *= .9f;
-		player.transform.localScale *= .9f;
+        var s = Mathf.Clamp(cam.orthographicSize * .9f, 0.1f, 20);
+        cam.orthographicSize = s;
 		player.SendMessage("scaleme", .9f);
 	}
 
 	private void ZoomIn()
 	{
 		var cam = this.GetComponent<Camera>();
-		if (null != cam)
-			cam.orthographicSize *= 1.1f;
-		player.transform.localScale *= 1.1f;
-		player.SendMessage("scaleme", 1.1f);
+        var s = Mathf.Clamp(cam.orthographicSize * 1.1f, 0.1f, 20);
+        cam.orthographicSize = s;
+        player.SendMessage("scaleme", 1.1f);
 	}
 }
