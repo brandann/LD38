@@ -20,8 +20,6 @@ public class BurstManager : MonoBehaviour {
 
 	private float mBurstScale = 1;
 
-	private BurstBehavior.eBurstSprites mBurstSprite;
-
     // Use this for initialization
     void Start () {
         if (!mBurstReady)
@@ -42,25 +40,13 @@ public class BurstManager : MonoBehaviour {
 		burstGO.transform.position = this.transform.position;
 		burstGO.transform.Rotate(new Vector3(0,0,Random.Range(0,360)));
 		burstGO.GetComponent<SpriteRenderer>().color = mColor;
-		burstGO.GetComponent<SpriteRenderer>().sprite = GetSprite(burstGO, mBurstSprite);
+		burstGO.GetComponent<BurstBehavior>().Scale(mBurstScale);
 		burstGO.transform.localScale *= mBurstScale;
     }
 
-	private Sprite GetSprite(GameObject burstObject, BurstBehavior.eBurstSprites sprite)
+	private Sprite GetSprite(GameObject burstObject)
 	{
-		if (sprite == BurstBehavior.eBurstSprites.Random)
-			return GetRandomSprite(burstObject);
-		var behavior = burstObject.GetComponent<BurstBehavior>();
-		var sprites = behavior.BurstSprites;
-		return sprites[(int) sprite];
-	}
-
-	private Sprite GetRandomSprite(GameObject burstObject)
-	{
-		var behavior = burstObject.GetComponent<BurstBehavior>();
-		var sprites = behavior.BurstSprites;
-		var rand = Random.Range(0, sprites.Length);
-		return sprites[rand];
+		return burstObject.GetComponent<SpriteRenderer>().sprite;
 	}
 
     public void MakeBurst(int burstCount, Color burstColor, Vector3 position/*, float burstInitSize -- NOT USED YET*/)
@@ -70,17 +56,11 @@ public class BurstManager : MonoBehaviour {
 
 	public void MakeBurst(int burstCount, Color burstColor, Vector3 position, float burstScale)
 	{
-		MakeBurst(burstCount, burstColor, position, burstScale, BurstBehavior.eBurstSprites.Random);
-	}
-
-	public void MakeBurst(int burstCount, Color burstColor, Vector3 position, float burstScale, BurstBehavior.eBurstSprites sprite)
-	{
 		this.transform.position = position;
 		mBurstEmitterCount = burstCount;
 		mColor = burstColor;
 		mBurstScale = burstScale;
 		mBurstReady = true;
-
-		mBurstSprite = sprite;
+		print("burst Scale:" + mBurstScale);
 	}
 }

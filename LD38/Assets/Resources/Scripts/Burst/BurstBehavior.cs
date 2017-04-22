@@ -2,19 +2,7 @@
 using System.Collections;
 
 public class BurstBehavior : MonoBehaviour {
-
-	public enum eBurstSprites {
-		Square = 0,
-		Circle = 1,
-		Diamond = 2,
-		Hex = 3,
-		Star3 = 4,
-		Star5 = 5,
-		Heart = 6,
-		Triangle = 7,
-
-		Random = 99
-	};
+	
 
 	// MIN, MAX OF SPEED APPLIED TO THE SINGLE
 	// BURST GAMEOBJECTS
@@ -34,13 +22,12 @@ public class BurstBehavior : MonoBehaviour {
     // MIN SIZE OF THE GAMEOBJECT BEFORE BEING DESTROYED
     private float MIN_SIZE = 0.1f;
 
-	public Sprite[] BurstSprites;
-
     void Start ()
     {
         mSpeed = Random.Range (RandomSpeedRange[0], RandomSpeedRange[1]);
 		mDecay = Random.Range (RandomDecayRate[0], RandomDecayRate[1]);
 		mDecay = Mathf.Clamp(mDecay, .001f, .999f);
+		
     }
     
     void Update ()
@@ -58,4 +45,9 @@ public class BurstBehavior : MonoBehaviour {
       	// SCALE THE GAMEOBJECT DOWN BASED ON THE DECAY RATE
       	this.transform.localScale *= mDecay;
     }
+
+	public void Scale(float s)
+	{
+		MIN_SIZE *= s;
+	}
 }
