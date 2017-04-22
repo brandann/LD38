@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player2AxisMovement : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class Player2AxisMovement : MonoBehaviour
     private Vector3 mVelocity;
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
     public bool zoomoncollection;
+
+    private int _score = 0;
+    public Text scoreText;
+    public Text NotificationText;
 
     void Start()
     {
@@ -35,6 +40,8 @@ public class Player2AxisMovement : MonoBehaviour
 			mVelocity.x = 0;
         
         GetComponent<Rigidbody2D>().velocity = (mVelocity.normalized * mVelocity.magnitude * _speed);
+
+        scoreText.text = "" + _score;
     }
 
 	public void scaleme(float s)
@@ -85,6 +92,15 @@ public class Player2AxisMovement : MonoBehaviour
             bgo.transform.position = collectionposition;
             var bm = bgo.GetComponent<BurstManager>();
             bm.MakeBurst(10, CollectionBehavior.GetKeyColor(key), collectionposition, c.gameObject.transform.localScale.x);
+
+            if(CollectionBehavior.Key.Blue == key)
+            {
+                NotificationText.text = "You found a blue key. go find a blue gate!";
+            }
+            else if (CollectionBehavior.Key.Green == key)
+            {
+                NotificationText.text = "You found a green key. go find a green gate!";
+            }
         }
 
         if (c.gameObject.tag == "Goal")
@@ -95,6 +111,25 @@ public class Player2AxisMovement : MonoBehaviour
             bm.MakeBurst(10, Color.yellow, c.gameObject.transform.position, c.gameObject.transform.localScale.x);
 
             Destroy(c.gameObject);
+
+            _score++;
+            var r = Random.Range(0, 4);
+            switch(r)
+            {
+                case 0:
+                    NotificationText.text = "Great! you got a yellow block, Go find keys and get more yellow blocks";
+                    break;
+                case 1:
+                    NotificationText.text = "All Hail the Yellow Blocks";
+                    break;
+                case 2:
+                    NotificationText.text = "GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD";
+                    break;
+                case 3:
+                    NotificationText.text = "One step closer to greatness!";
+                    break;
+            }
+            
         }
     }
 
