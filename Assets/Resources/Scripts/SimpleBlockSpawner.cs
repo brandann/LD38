@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class SimpleBlockSpawner : MonoBehaviour {
-
+	
 	public GameObject SpawnedBlockPrefab;
 	public GameObject Player;
-
+	
+	
 	float EnemyStarttime = 0;
 	public float EnemyDuration;
 	public float EnemySpeed;
@@ -18,11 +19,21 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	float WallStartTime = 0;
 	public float WallDuration;
 
+	#region Schooler Enemy
+	public GameObject SchoolingEnemyPrefab;
+	public float SchoolerSpawnDuration;
+	public int SchoolerSpawnLimit;
+	private float _lastSchoolerSpawnTime;
+	private int _schoolersSpawned;
+	#endregion
+
 	// Use this for initialization
 	void Start () {
 		EnemyStarttime = Time.timeSinceLevelLoad;
 		CollectionStartTime = Time.timeSinceLevelLoad;
 		WallStartTime = Time.timeSinceLevelLoad;
+		_lastSchoolerSpawnTime = Time.timeSinceLevelLoad;
+		
 	}
 	
 	// Update is called once per frame
@@ -44,7 +55,34 @@ public class SimpleBlockSpawner : MonoBehaviour {
 			SpawnWall();
 			WallStartTime = Time.timeSinceLevelLoad;
 		}
+
+		if (Time.timeSinceLevelLoad - _lastSchoolerSpawnTime > SchoolerSpawnDuration && _schoolersSpawned < SchoolerSpawnLimit) 
+		{
+			SpawnSchooler();
+		}
 	}
+
+	private void SpawnSchooler()
+	{
+		if (SchoolingEnemyPrefab == null)
+		{
+			Debug.LogError("No schooler to spawn");
+			return;
+		}	
+
+		var go = Instantiate(SchoolingEnemyPrefab);
+		var randvec = Random.insideUnitCircle;
+		randvec = Random.Range(this.transform.localScale.x / 2, this.transform.localScale.x / 1.5f ) * randvec ;
+
+		go.transform.position = randvec;
+		go.transform.localScale = 0.2f * Player.transform.lossyScale;
+
+		//Bookeeping
+		_lastSchoolerSpawnTime = Time.timeSinceLevelLoad;
+		_schoolersSpawned++;
+	}
+
+
 
 	private void SpawnWall()
 	{
@@ -69,7 +107,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		go.transform.position = randvec;
 
 		var psize = Player.transform.lossyScale.x;
-		var randscale = Random.Range(psize/10, psize*5);
+		var randscale = Random.Range(psize/10, psize*0.9f);
 
 		go.transform.localScale = new Vector3(randscale, randscale, randscale);
 
