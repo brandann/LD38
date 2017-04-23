@@ -6,6 +6,8 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	public GameObject Player;
 	[Space(10)]
 
+	public float SpawnedItemSpeed;
+
 	#region PrefabOne
 	public GameObject PrefabOne;
 	[RangeAttribute(0,1)]
@@ -75,7 +77,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		if (prefab == null)
 			return;
 
-		SpawnFromCircleToPlayer(prefab, Random.Range(0.1f, 1f), Random.Range(1f, 2f), Random.Range(0, 5));
+		SpawnFromCircleToPlayer(prefab, Random.Range(0.1f, 1f), Random.Range(1f, 2f), SpawnedItemSpeed);
 	}
 
 	private void SpawnFromCircleToPlayer(GameObject prefab, float minSize, float maxSize, float speed)
