@@ -2587,7 +2587,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Find Yellow Blocks....
+  m_Text: 
 --- !u!222 &851724157
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2990,6 +2990,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4000011555897536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
   m_IsPrefabParent: 0
@@ -3024,7 +3028,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.25, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1092335996
@@ -3536,6 +3540,7 @@ MonoBehaviour:
   MaxContinuousPrefabToSpawn: 300
   MinContinuousScale: 0.2
   MaxContinuousScale: 1.2
+  SchoolerPrefab: {fileID: 0}
 --- !u!1 &1567171329
 GameObject:
   m_ObjectHideFlags: 0
@@ -3663,7 +3668,7 @@ RectTransform:
   m_GameObject: {fileID: 1834700554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: -1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 723408892}
@@ -3671,11 +3676,11 @@ RectTransform:
   - {fileID: 2113371789}
   m_Father: {fileID: 1204481217}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 550}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 5, y: 0}
+  m_SizeDelta: {x: 20, y: 430}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1834700556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3714,7 +3719,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1567171331}
   m_FillRect: {fileID: 801416320}
   m_HandleRect: {fileID: 1567171330}
-  m_Direction: 3
+  m_Direction: 2
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0

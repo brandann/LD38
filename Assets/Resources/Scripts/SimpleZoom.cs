@@ -12,9 +12,11 @@ public class SimpleZoom : MonoBehaviour {
     public const float CameraMax = 20;
     public const float CameraMin = .1f;
 
+    private float sizetowin;
+
 	// Use this for initialization
 	void Start () {
-	
+        sizetowin = player.GetComponent<Player2AxisMovement>().SizeToWin;
 	}
 	
 	// Update is called once per frame
@@ -24,10 +26,9 @@ public class SimpleZoom : MonoBehaviour {
 		ZoomOut();
 		if (Input.GetKeyDown(KeyCode.W))
 		ZoomIn();
-		
 
-		//ZoomOut();
-        zoomUI.value =this.GetComponent<Camera>().orthographicSize / CameraMax;
+
+        zoomUI.value = 1 - (player.transform.localScale.x / sizetowin);      
 	}
 
 	public void ZoomOut()
