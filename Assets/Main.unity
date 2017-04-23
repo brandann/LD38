@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f789b93ce260f149beb8908e501a79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 934451397}
 --- !u!1 &654539875
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,23 +318,10 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 0.8
+    m_LineSpacing: 0.7
   m_Text: '<color=yellow><b>m o o n - e a t - m o o n</b></color>
 
-
-    Ludum Dare #38
-
-    Brandan Haertel
-
-    Gary Mixson
-
-
-    < press enter >
-
-
-    Music By RutgerMuller
-
-    (Freesounds.org)'
+'
 --- !u!222 &934451398
 CanvasRenderer:
   m_ObjectHideFlags: 0

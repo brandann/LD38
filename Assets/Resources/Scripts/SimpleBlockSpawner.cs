@@ -95,18 +95,10 @@ public class SimpleBlockSpawner : MonoBehaviour {
                 SpawnRateSecondsPrefabTwo = 999;
                 break;
             case 3:
-                SpawnRateSecondsPrefabOne = 11;
-                SpawnRateSecondsPrefabTwo = 12;
-                break;
-            case 4:
                 SpawnRateSecondsPrefabOne = 9;
                 SpawnRateSecondsPrefabTwo = 10;
                 break;
-            case 5:
-                SpawnRateSecondsPrefabOne = 7;
-                SpawnRateSecondsPrefabTwo = 8;
-                break;
-            case 6:
+            case 4:
                 SpawnRateSecondsPrefabOne = 5;
                 SpawnRateSecondsPrefabTwo = 6;
                 break;

@@ -8,6 +8,8 @@ public class CameraManager : MonoBehaviour {
     public event LevelupHandler OnLevelup = delegate { };
     public static float WinWaitTimeToRestart = 3;
 
+    public static int FinalScore;
+
     private int _currentLevel = 1;
     public const int MAX_LEVEL = 4;
     public int CurrentLevel
@@ -45,8 +47,10 @@ public class CameraManager : MonoBehaviour {
     {
         print("player leveled up on global");
         CurrentLevel++;
-        if (CurrentLevel <= MAX_LEVEL)
+        if (CurrentLevel <= 1)
             StartCoroutine("WinRoutine");
+        else
+            SceneManager.LoadScene("Main");
     }
 
     // COROUTINE FOR SPEED MOD
