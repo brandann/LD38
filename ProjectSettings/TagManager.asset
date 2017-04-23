@@ -5,13 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collection
+  - Wall
+  - Planet
   - Goal
   - SpawnedBlocks
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
   - Water
   - UI
   - 
