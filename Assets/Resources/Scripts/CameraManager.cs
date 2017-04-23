@@ -47,8 +47,10 @@ public class CameraManager : MonoBehaviour {
     {
         print("player leveled up on global");
         CurrentLevel++;
-        if (CurrentLevel <= MAX_LEVEL)
+        if (CurrentLevel <= 1)
             StartCoroutine("WinRoutine");
+        else
+            SceneManager.LoadScene("Main");
     }
 
     // COROUTINE FOR SPEED MOD
