@@ -144,6 +144,7 @@ public class Player2AxisMovement : MonoBehaviour
     IEnumerator StartOverRoutine()
     {
         // WAIT FOR THE MOD DURATION TO FINISH
+        yield return new WaitForSeconds(WinWaitTimeToRestart);
         var x = this.transform.localScale.x;
         while (x>.2f)
         {
@@ -154,6 +155,7 @@ public class Player2AxisMovement : MonoBehaviour
         }
         this.transform.localScale = new Vector3(WinStartSize, WinStartSize, WinStartSize);
         GameObject.Find("Spawner").GetComponent<WholeMapSpawner>().StartCoroutine("SpawnMap");
+        yield return new WaitForSeconds(WinWaitTimeToRestart);
         win = false;
         yield return null;
     }
