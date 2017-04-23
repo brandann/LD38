@@ -97,9 +97,22 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 		go.transform.localScale = new Vector3(randscale, randscale, 1);
 
-		var up = Player.transform.position - go.transform.position;
+        randvec = Random.insideUnitCircle;
+        randvec.Normalize();
+        randvec *= randscale;
+
+        var randvec3 = new Vector3(randvec.x, randvec.y, 1);
+        var newpos = Player.transform.position + randvec3;
+        newpos *= 3;
+        print(newpos);
+
+		var up = newpos - go.transform.position;
 		go.transform.up = up;
-		go.GetComponent<Rigidbody2D>().velocity = up * speed * Player.transform.localScale.x;
+
+        //speed = speed - ((go.transform.localScale.x / 2) / 2); //SPEED BASED OFF THE SIZE. LARGER THE SLOWER, SMALLER THE FASTER
+        speed = Random.Range(speed / 2, speed * 2); // speed based off speed.
+
+		go.GetComponent<Rigidbody2D>().velocity = up * speed;
 
 	}
 	

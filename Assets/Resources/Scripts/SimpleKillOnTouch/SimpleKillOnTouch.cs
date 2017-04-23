@@ -31,19 +31,23 @@ public class SimpleKillOnTouch : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D c)
 	{
-		var thisscale = this.gameObject.transform.localScale.x;
-		var otherscale = c.gameObject.transform.localScale.x;
-
-		if (thisscale > otherscale)
-		{
-			print("kill player with trigger");
-			c.SendMessage("kill");
-		}
-        else
+        if (c.gameObject.tag.Contains("Player"))
         {
-            print("Absorbed to player");
-            c.gameObject.SendMessage("absorb", this.transform.localScale.x);
-            Destroy(this.gameObject);
+            var thisscale = this.gameObject.transform.localScale.x;
+            var otherscale = c.gameObject.transform.localScale.x;
+
+            if (thisscale > otherscale)
+            {
+                print("kill player with trigger");
+                c.SendMessage("kill");
+            }
+            else
+            {
+                print("Absorbed to player");
+                c.gameObject.SendMessage("absorb", this.transform.localScale.x);
+                Destroy(this.gameObject);
+            }
         }
+
 	}
 }
