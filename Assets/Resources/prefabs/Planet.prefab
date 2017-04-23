@@ -87,6 +87,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinBounceDifference: 0.1
   MaxBounceDifference: 0.2
+  burstPrefab: {fileID: 1000014056944540, guid: f0102564c59f0fe468b177213920aa8e,
+    type: 2}
 --- !u!212 &212000013989319048
 SpriteRenderer:
   m_ObjectHideFlags: 1

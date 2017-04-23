@@ -34,11 +34,18 @@ public class Player2AxisMovement : MonoBehaviour
 
     public GameObject burstPrefab;
 
+    public delegate void PlayerLevelupHandler();
+    public event PlayerLevelupHandler OnPlayerLevelup = delegate { };
+
+    public delegate void AbsorbHandler();
+    public event AbsorbHandler OnAbsorb = delegate { };
+
     void Start()
     {
         mVelocity = new Vector3(0, 0, 0);
         mStartingPosition = transform.position;
         _score = (int) this.transform.localScale.x;
+        GameObject.Find("Main Camera").GetComponent<CameraManager>().OnLevelup += this.OnLevelUp;
 	}
 
     // Update is called once per frame
@@ -102,10 +109,15 @@ public class Player2AxisMovement : MonoBehaviour
 
         if (this.transform.localScale.x >= SizeToWin)
         {
-            win = true;
-            StartCoroutine("WinRoutine");
-            StartCoroutine("StartOverRoutine");
+            OnPlayerLevelup();
         }
+    }
+
+    public void OnLevelUp(int lvl)
+    {
+        win = true;
+        StartCoroutine("WinRoutine");
+        StartCoroutine("StartOverRoutine");
     }
     
     // COROUTINE FOR SPEED MOD
@@ -132,6 +144,7 @@ public class Player2AxisMovement : MonoBehaviour
     IEnumerator StartOverRoutine()
     {
         // WAIT FOR THE MOD DURATION TO FINISH
+        yield return new WaitForSeconds(WinWaitTimeToRestart);
         var x = this.transform.localScale.x;
         while (x>.2f)
         {
@@ -141,7 +154,10 @@ public class Player2AxisMovement : MonoBehaviour
             yield return new WaitForSeconds(WinShrinkWaitTime);
         }
         this.transform.localScale = new Vector3(WinStartSize, WinStartSize, WinStartSize);
+
         //GameObject.Find("Spawner").GetComponent<WholeMapSpawner>().StartCoroutine("SpawnMap");
+        yield return new WaitForSeconds(WinWaitTimeToRestart);
+
         win = false;
         yield return null;
     }
