@@ -2613,15 +2613,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013188785760, guid: fff0bcb1defd2af46a83c4b28e79b570,
         type: 2}
@@ -3206,7 +3206,6 @@ MonoBehaviour:
     type: 2}
   SpawnTimeSecondsContinuousPrefab: 2
   MaxContinuousPrefabToSpawn: 300
-  DistanceFromPlayer: 1
   MinContinuousScale: 0.2
   MaxContinuousScale: 1.2
 --- !u!1 &1567171329
