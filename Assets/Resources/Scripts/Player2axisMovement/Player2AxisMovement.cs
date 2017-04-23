@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player2AxisMovement : MonoBehaviour
 {
-    private float _speed = 12;
+    public float _speed;
     private Vector3 mStartingPosition;
     private Vector3 mVelocity;
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
