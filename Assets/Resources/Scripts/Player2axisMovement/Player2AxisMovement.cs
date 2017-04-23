@@ -17,7 +17,6 @@ public class Player2AxisMovement : MonoBehaviour
     public Text scoreText;
     public Text NotificationText;
 
-    public float WinWaitTimeToRestart;// = .5f;
     public float WinShrinkRate;// = .9f;
     public float WinShrinkWaitTime;// = .01f;
     public float WinStartSize;// = .2f;
@@ -119,36 +118,16 @@ public class Player2AxisMovement : MonoBehaviour
         if(lvl != 1)
         {
             win = true;
-            StartCoroutine("WinRoutine");
             StartCoroutine("StartOverRoutine");
         }
     }
     
-    // COROUTINE FOR SPEED MOD
-    IEnumerator WinRoutine()
-    {
-        // WAIT FOR THE MOD DURATION TO FINISH
-        yield return new WaitForSeconds(WinWaitTimeToRestart);
-        var l = GameObject.FindGameObjectsWithTag("SpawnedBlocks");
-        foreach(GameObject p in l)
-        {
-            Destroy(p);
-        }
 
-        //Planet
-        var planets = GameObject.FindGameObjectsWithTag("Planet");
-        foreach (GameObject p in planets)
-        {
-            Destroy(p);
-        }
-        
-        yield return null;
-    }
 
     IEnumerator StartOverRoutine()
     {
         // WAIT FOR THE MOD DURATION TO FINISH
-        yield return new WaitForSeconds(WinWaitTimeToRestart);
+        yield return new WaitForSeconds(0);
         var x = this.transform.localScale.x;
         while (x>.2f)
         {
@@ -160,7 +139,7 @@ public class Player2AxisMovement : MonoBehaviour
         this.transform.localScale = new Vector3(WinStartSize, WinStartSize, WinStartSize);
 
         //GameObject.Find("Spawner").GetComponent<WholeMapSpawner>().StartCoroutine("SpawnMap");
-        yield return new WaitForSeconds(WinWaitTimeToRestart);
+        yield return new WaitForSeconds(CameraManager.WinWaitTimeToRestart);
 
         win = false;
         yield return null;

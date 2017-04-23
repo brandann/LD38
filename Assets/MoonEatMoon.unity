@@ -2613,15 +2613,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114000013188785760, guid: fff0bcb1defd2af46a83c4b28e79b570,
         type: 2}
