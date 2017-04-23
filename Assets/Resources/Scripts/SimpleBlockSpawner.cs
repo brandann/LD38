@@ -11,10 +11,12 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	#region PrefabOne
 	public GameObject PrefabOne;
 	[RangeAttribute(0,1)]
-	public float MinSizePrefabOne;	
+    public float MinSizePrefabOne;
+    [RangeAttribute(0, 1)]
 	public float MaxSizePrefabOne;
 	[RangeAttribute(1,600)]
-	public float SpawnRateSecondsPrefabOne;	
+	public float SpawnRateSecondsPrefabOne;
+    public float distancemultiplier1;
 	private float _lastSpawnTimePrefabOne;
 	[Space(10)]
 	#endregion
@@ -22,10 +24,12 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	#region PrefabTwo
 	public GameObject PrefabTwo;
 	[RangeAttribute(0, 1)]
-	public float MinSizePrefabTwo;
+    public float MinSizePrefabTwo;
+    [RangeAttribute(0, 1)]
 	public float MaxSizePrefabTwo;
 	[RangeAttribute(1, 600)]
-	public float SpawnRateSecondsPrefabTwo;
+    public float SpawnRateSecondsPrefabTwo;
+    public float distancemultiplier2;
 	private float _lastSpawnTimePrefabTwo;
 	[Space(10)]
 	#endregion
@@ -33,10 +37,12 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	#region PrefabThree
 	public GameObject PrefabThree;
 	[RangeAttribute(0, 1)]
-	public float MinSizePrefabThree;
+    public float MinSizePrefabThree;
+    [RangeAttribute(0, 1)]
 	public float MaxSizePrefabThree;
 	[RangeAttribute(1, 600)]
-	public float SpawnRateSecondsPrefabThree;
+    public float SpawnRateSecondsPrefabThree;
+    public float distancemultiplier3;
 	private float _lastSpawnTimePrefabThree;
 	[Space(10)]
 	#endregion
@@ -44,10 +50,12 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	#region PrefabFour
 	public GameObject PrefabFour;
 	[RangeAttribute(0, 1)]
-	public float MinSizePrefabFour;
+    public float MinSizePrefabFour;
+    [RangeAttribute(0, 1)]
 	public float MaxSizePrefabFour;
 	[RangeAttribute(1, 600)]
-	public float SpawnRateSecondsPrefabFour;
+    public float SpawnRateSecondsPrefabFour;
+    public float distancemultiplier4;
 	private float _lastSpawnTimePrefabFour;
 	[Space(10)]
 	#endregion
@@ -72,15 +80,15 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 	}
 
-	private void SpawnFromCircleToPlayer(GameObject prefab)
+	private void SpawnFromCircleToPlayer(GameObject prefab, float distancemultiplier = 1)
 	{
 		if (prefab == null)
 			return;
 
-		SpawnFromCircleToPlayer(prefab, Random.Range(0.1f, 1f), Random.Range(1f, 2f), SpawnedItemSpeed);
+		SpawnFromCircleToPlayer(prefab, Random.Range(0.1f, 1f), Random.Range(1f, 2f), SpawnedItemSpeed, distancemultiplier);
 	}
 
-	private void SpawnFromCircleToPlayer(GameObject prefab, float minSize, float maxSize, float speed)
+    private void SpawnFromCircleToPlayer(GameObject prefab, float minSize, float maxSize, float speed, float distancemultiplier = 1)
 	{
 		if (prefab == null)
 			return;
@@ -101,10 +109,8 @@ public class SimpleBlockSpawner : MonoBehaviour {
         randvec.Normalize();
         randvec *= randscale;
 
-        var randvec3 = new Vector3(randvec.x, randvec.y, 1);
+        var randvec3 = distancemultiplier * new Vector3(randvec.x, randvec.y, 1);
         var newpos = Player.transform.position + randvec3;
-        newpos *= 3;
-        print(newpos);
 
 		var up = newpos - go.transform.position;
 		go.transform.up = up;
@@ -113,7 +119,6 @@ public class SimpleBlockSpawner : MonoBehaviour {
         speed = Random.Range(speed / 2, speed * 2); // speed based off speed.
 
 		go.GetComponent<Rigidbody2D>().velocity = up * speed;
-
 	}
 	
 	// Update is called once per frame
@@ -121,25 +126,25 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabOne > SpawnRateSecondsPrefabOne )
 		{
-			SpawnFromCircleToPlayer(PrefabOne);
+            SpawnFromCircleToPlayer(PrefabOne, distancemultiplier1);
 			_lastSpawnTimePrefabOne = Time.timeSinceLevelLoad;
 		}
 
 		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabTwo > SpawnRateSecondsPrefabTwo)
 		{
-			SpawnFromCircleToPlayer(PrefabTwo);
+            SpawnFromCircleToPlayer(PrefabTwo, distancemultiplier2);
 			_lastSpawnTimePrefabTwo = Time.timeSinceLevelLoad;
 		}
 
 		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabThree > SpawnRateSecondsPrefabThree)
 		{
-			SpawnFromCircleToPlayer(PrefabThree);
+            SpawnFromCircleToPlayer(PrefabThree, distancemultiplier3);
 			_lastSpawnTimePrefabThree = Time.timeSinceLevelLoad;
 		}
 
 		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabFour > SpawnRateSecondsPrefabFour)
 		{
-			SpawnFromCircleToPlayer(PrefabFour);
+            SpawnFromCircleToPlayer(PrefabFour, distancemultiplier4);
 			_lastSpawnTimePrefabFour = Time.timeSinceLevelLoad;
 		}
 
