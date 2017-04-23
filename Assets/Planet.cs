@@ -9,6 +9,8 @@ public class Planet : MonoBehaviour
     public float MinBounceDifference;
     public float MaxBounceDifference;
 
+    public GameObject burstPrefab;
+
 	void Start()
 	{
 		_rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
@@ -55,6 +57,12 @@ public class Planet : MonoBehaviour
                 {
                     print("Absorbed to player");
                     c.gameObject.SendMessage("absorb", this.transform.localScale.x);
+
+                    var go = Instantiate(burstPrefab);
+                    go.transform.position = this.transform.position;
+                    var burst = go.GetComponent<BurstManager>();
+                    burst.MakeBurst(20, Color.green, this.transform.position, this.transform.localScale.x);
+
                     Destroy(this.gameObject);
                 }
             }
