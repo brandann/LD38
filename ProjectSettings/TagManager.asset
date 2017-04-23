@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collection
-  - Goal
+  - Wall
+  - Planet
   layers:
   - Default
   - TransparentFX
