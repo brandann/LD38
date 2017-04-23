@@ -73,6 +73,7 @@ public class WholeMapSpawner : MonoBehaviour {
 		LoadLevelParameters(nextLvl);
 		PopulateInitialWorldAtOnce();
 		StartCoroutine("SpawnContinuous");
+		print("start spawining level" + lvlNum);
 	}
 
 
