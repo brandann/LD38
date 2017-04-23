@@ -33,14 +33,8 @@ public class SimpleKillOnTouch : MonoBehaviour {
 	{
         if (c.gameObject.tag.Contains("Player"))
         {
-            var thisscale = this.gameObject.transform.localScale.x;
-            var otherscale = c.gameObject.transform.localScale.x;
-
-            if (thisscale > otherscale)
-            {
                 print("kill player with trigger");
-                c.SendMessage("kill");
-            }
+                c.SendMessage("kill");      
         }
 
 	}
