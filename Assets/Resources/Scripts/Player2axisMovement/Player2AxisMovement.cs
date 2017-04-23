@@ -109,6 +109,29 @@ public class Player2AxisMovement : MonoBehaviour
         go.transform.position = this.transform.position;
         var burst = go.GetComponent<BurstManager>();
         burst.MakeBurst(10, Color.white, this.transform.position, this.transform.localScale.x);
+
+        var r = Random.Range(0, 6);
+        switch (r)
+        {
+            case 0:
+                NotificationText.text = "your dieting plan worked!";
+                break;
+            case 1:
+                NotificationText.text = "";
+                break;
+            case 2:
+                NotificationText.text = "the tiny people revolted and suceded from your planet.";
+                break;
+            case 3:
+                NotificationText.text = "the goal is actually to obtain more real estate.";
+                break;
+            case 4:
+                NotificationText.text = "Hint: to win, those objects should generally be avoided.";
+                break;
+            case 5:
+                NotificationText.text = "aliens have taked your inhabitants hostage! eat more planets to boost your numbers.";
+                break;
+        }
     }
 
 
@@ -127,6 +150,35 @@ public class Player2AxisMovement : MonoBehaviour
         {
             OnPlayerLevelup();
             win = true;
+        }
+
+        if(!win)
+        {
+            var r = Random.Range(0, 7);
+            switch (r)
+            {
+                case 0:
+                    NotificationText.text = "that planet was no match for you!";
+                    break;
+                case 1:
+                    NotificationText.text = "save some room for later.";
+                    break;
+                case 2:
+                    NotificationText.text = "target annihilated!";
+                    break;
+                case 3:
+                    NotificationText.text = "woah, slow down, this isn't a contest! actually, i guess it is... carry on.";
+                    break;
+                case 4:
+                    NotificationText.text = "betchya can't eat just one!";
+                    break;
+                case 5:
+                    NotificationText.text = "massive immigration occurred, causing a population swell.";
+                    break;
+                case 6:
+                    NotificationText.text = "i know this story, but i think it started with an old lady who swollowed a fly...";
+                    break;
+            }
         }
 
     }
@@ -161,8 +213,8 @@ public class Player2AxisMovement : MonoBehaviour
         yield return null;
     }
 
-	public void kill()
-	{
+    private void kill()
+    {
         if (win)
             return;
 		var bgo = Instantiate(burstPrefab);
@@ -171,32 +223,66 @@ public class Player2AxisMovement : MonoBehaviour
 		bm.MakeBurst(30, Color.white, this.transform.position, this.transform.localScale.x);
 		GameObject.Find("Main Camera").GetComponent<CameraManager>().restartAfter3Seconds();
 
-        //if (CameraManager.FinalScore == MAX_SCORE)
-        //{
-        //    NotificationText.text = "You got all the gold! the weight of your bounty crushed you... you die.";
-        //}
-        //else
-        //{
-        //    var r = Random.Range(0, 4);
-        //    switch (r)
-        //    {
-        //        case 0:
-        //            NotificationText.text = "hahahahahahahaha. dead.";
-        //            break;
-        //        case 1:
-        //            NotificationText.text = "What happened? you were our only hope";
-        //            break;
-        //        case 2:
-        //            NotificationText.text = "null == player1";
-        //            break;
-        //        case 3:
-        //            NotificationText.text = "kjnasek;jnr;ak34j5nk34jtnk;j3qn6kqj3nktn";
-        //            break;
-        //    }
-            
-        //}
+        Destroy(this.gameObject);
+    }
 
-		Destroy(this.gameObject);
+    public void killByComet()
+    {
+        if (win)
+            return;
+
+        var r = Random.Range(0, 5);
+        switch (r)
+        {
+            case 0:
+                NotificationText.text = "better luck next time!";
+                break;
+            case 1:
+                NotificationText.text = "there's this skill called dodge, you should learn it.";
+                break;
+            case 2:
+                NotificationText.text = "it's okay, the many tine deaths you are responsible for never saw it coming.";
+                break;
+            case 3:
+                NotificationText.text = "kjnasek;jnr;ak34j5nk34jtnk;j3qn6kqj3nktn";
+                break;
+            case 4:
+                NotificationText.text = "let's try that again.";
+                break;
+        }
+
+        kill();
+    }
+
+	public void killByPlanet()
+	{
+        if (win)
+            return;
+
+        var r = Random.Range(0, 5);
+        switch (r)
+        {
+            case 0:
+                NotificationText.text = "out of my way, small fry!";
+                break;
+            case 1:
+                NotificationText.text = "bet you didn't read the instructions.";
+                break;
+            case 2:
+                NotificationText.text = "pick on somebody your own size.";
+                break;
+            case 3:
+                NotificationText.text = "the faint sounds of screaming were heard as you planet was crushed.";
+                break;
+            case 4:
+                NotificationText.text = "did you forget to eat your spinach?";
+                break;
+            case 5:
+                NotificationText.text = "maybe a smaller bit next time?";
+                break;
+        }
+
+        kill();
 	}
 
     void OnTriggerEnter2D(Collider2D c)
