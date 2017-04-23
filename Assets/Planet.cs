@@ -30,6 +30,12 @@ public class Planet : MonoBehaviour
 				print("kill player");
 				c.gameObject.SendMessage("kill");
 			}
+            else
+            {
+                print("Absorbed to player");
+                c.gameObject.SendMessage("absorb", this.transform.localScale.x);
+                Destroy(this.gameObject);
+            }
 		}
 		else if (c.gameObject.tag.Contains("Wall") )
 		{
