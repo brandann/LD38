@@ -67,7 +67,8 @@ public class Player2AxisMovement : MonoBehaviour
     public void absorb(float x)
     {
         var newx = this.transform.localScale.x + (x * .5f);
-        _score += (int) newx;
+        var s = Mathf.Max(x, 1);
+        _score += (int) s;
         this.transform.localScale = new Vector3(newx, newx, newx);
 
         if(this.transform.localScale.x >= 8)
@@ -88,6 +89,13 @@ public class Player2AxisMovement : MonoBehaviour
         {
             Destroy(p);
         }
+
+        //Planet
+        var planets = GameObject.FindGameObjectsWithTag("Planet");
+        foreach (GameObject p in planets)
+        {
+            Destroy(p);
+        }
         
         yield return null;
     }
@@ -104,6 +112,7 @@ public class Player2AxisMovement : MonoBehaviour
             yield return new WaitForSeconds(WinShrinkWaitTime);
         }
         this.transform.localScale = new Vector3(WinStartSize, WinStartSize, WinStartSize);
+        GameObject.Find("Spawner").GetComponent<WholeMapSpawner>().StartCoroutine("SpawnMap");
         win = false;
         yield return null;
     }

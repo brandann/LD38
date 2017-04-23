@@ -35,15 +35,27 @@ public class WholeMapSpawner : MonoBehaviour {
 		if (PrefabOne == null)
 			return;
 
-		BufferSide currSide;
-
-		for(int i = 0; i < NumberOfItemsToSpawn; ++i )
-		{
-			currSide = (BufferSide)(i % 4);
-			SpawnPrefab(PrefabOne, currSide);
-		}
-	
+		
+        StartCoroutine("SpawnMap");
 	}
+
+    // COROUTINE FOR SPEED MOD
+    public IEnumerator SpawnMap()
+    {
+        // WAIT FOR THE MOD DURATION TO FINISH
+        
+        BufferSide currSide;
+
+        for (int i = 0; i < NumberOfItemsToSpawn; ++i)
+        {
+            currSide = (BufferSide)(i % 4);
+            SpawnPrefab(PrefabOne, currSide);
+            yield return new WaitForSeconds(.1f);
+        }
+
+        yield return null;
+    }
+
 
 	void SpawnPrefab(GameObject prefab, BufferSide side)
 	{

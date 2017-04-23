@@ -3113,23 +3113,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1795923964}
-  SpawnedItemSpeed: 0.5
+  SpawnedItemSpeed: 0.4
   PrefabOne: {fileID: 1000012919605892, guid: f986dbd8bbd492046aafdf8158fc7a73, type: 2}
-  MinSizePrefabOne: 0.9
+  MinSizePrefabOne: 0.8
   MaxSizePrefabOne: 1.05
   SpawnRateSecondsPrefabOne: 3
-  PrefabTwo: {fileID: 0}
-  MinSizePrefabTwo: 0
-  MaxSizePrefabTwo: 0
-  SpawnRateSecondsPrefabTwo: 0
+  distancemultiplier1: 3
+  PrefabTwo: {fileID: 1000012919605892, guid: f986dbd8bbd492046aafdf8158fc7a73, type: 2}
+  MinSizePrefabTwo: 1
+  MaxSizePrefabTwo: 1
+  SpawnRateSecondsPrefabTwo: 20
+  distancemultiplier2: 0
   PrefabThree: {fileID: 0}
   MinSizePrefabThree: 0
   MaxSizePrefabThree: 0
   SpawnRateSecondsPrefabThree: 0
+  distancemultiplier3: 0
   PrefabFour: {fileID: 0}
   MinSizePrefabFour: 0
   MaxSizePrefabFour: 0
   SpawnRateSecondsPrefabFour: 0
+  distancemultiplier4: 0
   SchoolingEnemyPrefab: {fileID: 1000010829978866, guid: 069b279d11fb7614091f168d08959aae,
     type: 2}
   SchoolerSpawnDuration: 999
@@ -3149,10 +3153,10 @@ MonoBehaviour:
   MinSizePrefabOne: 0.1
   MaxSizePrefabOne: 6
   NumberOfItemsToSpawn: 60
-  MinX: -30
-  MinY: -25
-  MaxX: 30
-  MaxY: 25
+  MinX: -60
+  MinY: -55
+  MaxX: 60
+  MaxY: 55
   MinSpeed: -4
   MaxSpeed: 4
 --- !u!1 &1567171329
