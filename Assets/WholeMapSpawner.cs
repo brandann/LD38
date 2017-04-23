@@ -26,8 +26,14 @@ public class WholeMapSpawner : MonoBehaviour {
 	private int _totalContinousPrefabsSpawned;
 	#endregion
 
+	#region Schoolers
+	public GameObject SchoolerPrefab;
+	private int _totalShoolersSpawned;
+	#endregion
+
+
 	#region Levels
-	private LevelVariables _lvl1, _lvl2, _lvl3;
+	private LevelVariables _lvl1, _lvl2, _lvl3, _lvl4;
 	private Dictionary<int, LevelVariables> _levelLookup;
 	#endregion 
 
@@ -74,6 +80,21 @@ public class WholeMapSpawner : MonoBehaviour {
 		PopulateInitialWorldAtOnce();
 		StartCoroutine("SpawnContinuous");
 		print("start spawining level" + lvlNum);
+		if(lvlNum == 4)
+		{
+			StartCoroutine("SpawnSchoolers");
+		}
+	}
+
+	public IEnumerator SpawnSchoolers()
+	{
+		while(_totalShoolersSpawned < 30)
+		{
+			yield return new WaitForSeconds(1 + _totalShoolersSpawned);
+			GameObject go = SpawnPrefabAwayFromPlayer(SchoolerPrefab, BUFFER_SIZE * 2);
+			//go.transform.localScale = f;
+			_totalShoolersSpawned++;
+		}
 	}
 
 
@@ -191,7 +212,7 @@ public class WholeMapSpawner : MonoBehaviour {
 		_lvl1 = new LevelVariables {
 			MinSizePrefabOne = .01f,
 			MaxSizePrefabOne = 2f,
-			NumberOfItemsToSpawn = 30,
+			NumberOfItemsToSpawn = 20,
 			MinSpeed = -4f,
 			MaxSpeed = 2f,
 			SpawnTimeSecondsContinuousPrefab = 2,
@@ -203,7 +224,7 @@ public class WholeMapSpawner : MonoBehaviour {
 		_lvl2 = new LevelVariables
 		{
 			MinSizePrefabOne = .01f,
-			MaxSizePrefabOne = 8f,
+			MaxSizePrefabOne = 4f,
 			NumberOfItemsToSpawn = 40,
 			MinSpeed = -4f,
 			MaxSpeed = 4f,
@@ -215,21 +236,35 @@ public class WholeMapSpawner : MonoBehaviour {
 
 		_lvl3 = new LevelVariables
 		{
-			MinSizePrefabOne = .05f,
+			MinSizePrefabOne = .8f,
 			MaxSizePrefabOne = 8f,
 			NumberOfItemsToSpawn = 40,
 			MinSpeed = -4f,
 			MaxSpeed = 4f,
 			SpawnTimeSecondsContinuousPrefab = 2,
 			MaxContinuousPrefabToSpawn = 20,
-			MinContinuousScale = 0.2f,
-			MaxContinuousScale = 1.8f
+			MinContinuousScale = 0.8f,
+			MaxContinuousScale = 3f
+		};
+
+		_lvl4 = new LevelVariables
+		{
+			MinSizePrefabOne = .9f,
+			MaxSizePrefabOne = 10f,
+			NumberOfItemsToSpawn = 45,
+			MinSpeed = -5f,
+			MaxSpeed = 5f,
+			SpawnTimeSecondsContinuousPrefab = 2,
+			MaxContinuousPrefabToSpawn = 20,
+			MinContinuousScale = .9f,
+			MaxContinuousScale = 4f
 		};
 
 		_levelLookup = new Dictionary<int, LevelVariables>();
 		_levelLookup.Add(1, _lvl1);
 		_levelLookup.Add(2, _lvl2);
 		_levelLookup.Add(3, _lvl3);
+		_levelLookup.Add(4, _lvl4);
 	}
 
 	private class LevelVariables
