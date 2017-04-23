@@ -1,23 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Timers;
 
 public class SimpleBlockSpawner : MonoBehaviour {
-	
-	public GameObject SpawnedBlockPrefab;
 	public GameObject Player;
-	
-	
-	float EnemyStarttime = 0;
-	public float EnemyDuration;
-	public float EnemySpeed;
+	[Space(10)]
 
-	public GameObject CollectionBlockPrefab;
-	float CollectionStartTime = 0;
-	public float CollectionDuration;
+	#region PrefabOne
+	public GameObject PrefabOne;
+	[RangeAttribute(0,1)]
+	public float MinSizePrefabOne;	
+	public float MaxSizePrefabOne;
+	[RangeAttribute(1,600)]
+	public float SpawnRateSecondsPrefabOne;	
+	private float _lastSpawnTimePrefabOne;
+	[Space(10)]
+	#endregion
 
-	public GameObject WallBlockPrefab;
-	float WallStartTime = 0;
-	public float WallDuration;
+	#region PrefabTwo
+	public GameObject PrefabTwo;
+	[RangeAttribute(0, 1)]
+	public float MinSizePrefabTwo;
+	public float MaxSizePrefabTwo;
+	[RangeAttribute(1, 600)]
+	public float SpawnRateSecondsPrefabTwo;
+	private float _lastSpawnTimePrefabTwo;
+	[Space(10)]
+	#endregion
+
+	#region PrefabThree
+	public GameObject PrefabThree;
+	[RangeAttribute(0, 1)]
+	public float MinSizePrefabThree;
+	public float MaxSizePrefabThree;
+	[RangeAttribute(1, 600)]
+	public float SpawnRateSecondsPrefabThree;
+	private float _lastSpawnTimePrefabThree;
+	[Space(10)]
+	#endregion
+
+	#region PrefabFour
+	public GameObject PrefabFour;
+	[RangeAttribute(0, 1)]
+	public float MinSizePrefabFour;
+	public float MaxSizePrefabFour;
+	[RangeAttribute(1, 600)]
+	public float SpawnRateSecondsPrefabFour;
+	private float _lastSpawnTimePrefabFour;
+	[Space(10)]
+	#endregion
+	
 
 	#region Schooler Enemy
 	public GameObject SchoolingEnemyPrefab;
@@ -29,38 +61,76 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		EnemyStarttime = Time.timeSinceLevelLoad;
-		CollectionStartTime = Time.timeSinceLevelLoad;
-		WallStartTime = Time.timeSinceLevelLoad;
-		_lastSchoolerSpawnTime = Time.timeSinceLevelLoad;
-		
+			
+		_lastSpawnTimePrefabOne = 
+		_lastSpawnTimePrefabTwo	= 
+		_lastSpawnTimePrefabThree =
+		_lastSpawnTimePrefabFour = Time.timeSinceLevelLoad;
+
+
+	}
+
+	private void SpawnFromCircleToPlayer(GameObject prefab)
+	{
+		if (prefab == null)
+			return;
+
+		SpawnFromCircleToPlayer(prefab, Random.Range(0.1f, 1f), Random.Range(1f, 2f), Random.Range(0, 5));
+	}
+
+	private void SpawnFromCircleToPlayer(GameObject prefab, float minSize, float maxSize, float speed)
+	{
+		if (prefab == null)
+			return;
+
+		var go = Instantiate(prefab);
+		var randvec = Random.insideUnitCircle;
+		randvec.Normalize();
+		randvec *= this.transform.localScale.x / 2;
+
+		go.transform.position = randvec;
+
+		var psize = Player.transform.lossyScale.x;
+		var randscale = Random.Range(psize * minSize, psize * maxSize);
+
+		go.transform.localScale = new Vector3(randscale, randscale, 1);
+
+		var up = Player.transform.position - go.transform.position;
+		go.transform.up = up;
+		go.GetComponent<Rigidbody2D>().velocity = up * speed * Player.transform.localScale.x;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if((Time.timeSinceLevelLoad - EnemyStarttime) > EnemyDuration)
+
+		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabOne > SpawnRateSecondsPrefabOne )
 		{
-			SpawnBlock();
-			EnemyStarttime = Time.timeSinceLevelLoad;
+			SpawnFromCircleToPlayer(PrefabOne);
+			_lastSpawnTimePrefabOne = Time.timeSinceLevelLoad;
 		}
 
-		if ((Time.timeSinceLevelLoad - CollectionStartTime) > CollectionDuration)
+		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabTwo > SpawnRateSecondsPrefabTwo)
 		{
-			SpawnCollection();
-			CollectionStartTime = Time.timeSinceLevelLoad;
+			SpawnFromCircleToPlayer(PrefabTwo);
+			_lastSpawnTimePrefabTwo = Time.timeSinceLevelLoad;
 		}
 
-		if ((Time.timeSinceLevelLoad - WallStartTime) > WallDuration)
+		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabThree > SpawnRateSecondsPrefabThree)
 		{
-			SpawnWall();
-			WallStartTime = Time.timeSinceLevelLoad;
+			SpawnFromCircleToPlayer(PrefabThree);
+			_lastSpawnTimePrefabThree = Time.timeSinceLevelLoad;
 		}
 
-		if (Time.timeSinceLevelLoad - _lastSchoolerSpawnTime > SchoolerSpawnDuration && _schoolersSpawned < SchoolerSpawnLimit) 
+		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabFour > SpawnRateSecondsPrefabFour)
 		{
-			SpawnSchooler();
+			SpawnFromCircleToPlayer(PrefabFour);
+			_lastSpawnTimePrefabFour = Time.timeSinceLevelLoad;
 		}
+
+
 	}
+	/*
 
 	private void SpawnSchooler()
 	{
@@ -85,11 +155,11 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		_schoolersSpawned++;
 	}
 
-
+	
 
 	private void SpawnWall()
 	{
-		var go = Instantiate(WallBlockPrefab);
+		//var go = Instantiate(WallBlockPrefab);
 		var randvec = Random.insideUnitCircle;
 		randvec = Random.Range(this.transform.localScale.x / 5, this.transform.localScale.x) * randvec;
 
@@ -102,7 +172,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 	private void SpawnBlock()
 	{
-		var go = Instantiate(SpawnedBlockPrefab);
+		var go = Instantiate(PrefabOne);
 		var randvec = Random.insideUnitCircle;
 		randvec.Normalize();
 		randvec *= this.transform.localScale.x / 2;
@@ -116,12 +186,12 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
 		var up = Player.transform.position - go.transform.position;
 		go.transform.up = up;
-		go.GetComponent<Rigidbody2D>().velocity = up * EnemySpeed * Player.transform.localScale.x;
+		//go.GetComponent<Rigidbody2D>().velocity = up * EnemySpeed * Player.transform.localScale.x;
 	}
 
 	private void SpawnCollection()
 	{
-		var go = Instantiate(CollectionBlockPrefab);
+		//var go = Instantiate(CollectionBlockPrefab);
         //go.GetComponent<CollectionBehavior>().SpawnRandomKey();
 		var randvec = Random.insideUnitCircle;
 		randvec = Random.Range(this.transform.localScale.x/5, this.transform.localScale.x) * randvec;
@@ -134,4 +204,5 @@ public class SimpleBlockSpawner : MonoBehaviour {
 
         
 	}
+	*/
 }
