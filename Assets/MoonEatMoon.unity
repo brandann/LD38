@@ -308,7 +308,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 656160998}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -346,12 +346,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 1111302376
   looping: 1
   prewarm: 1
   playOnAwake: 1
   moveWithTransform: 1
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 1111302376
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -3127,6 +3128,13 @@ MonoBehaviour:
   MaxY: 55
   MinSpeed: -4
   MaxSpeed: 4
+  ContinuousPrefab: {fileID: 1000011188568776, guid: ea95d5661a6f62e4f8af079586e1a3c4,
+    type: 2}
+  SpawnTimeSecondsContinuousPrefab: 2
+  MaxContinuousPrefabToSpawn: 300
+  DistanceFromPlayer: 1
+  MinContinuousScale: 0.2
+  MaxContinuousScale: 1.2
 --- !u!1 &1567171329
 GameObject:
   m_ObjectHideFlags: 0
