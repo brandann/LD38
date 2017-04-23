@@ -49,15 +49,24 @@ public class Player2AxisMovement : MonoBehaviour
 			mVelocity.y = 1;
 		else if (Input.GetKey(KeyCode.DownArrow))
 			mVelocity.y = -1;
-		else
-			mVelocity.y = 0;
+        else
+        {
+            mVelocity.y = 0;
+            var y = Input.GetAxis("Vertical");
+            mVelocity.y = y;
+        }
+			
 
 		if (Input.GetKey(KeyCode.RightArrow))
 			mVelocity.x = 1;
 		else if (Input.GetKey(KeyCode.LeftArrow))
 			mVelocity.x = -1;
-		else
-			mVelocity.x = 0;
+        else
+        {
+            mVelocity.x = 0;
+            var x = Input.GetAxis("Horizontal");
+            mVelocity.x = x;
+        }
         
         GetComponent<Rigidbody2D>().velocity = (mVelocity.normalized * mVelocity.magnitude * _speed);
 
