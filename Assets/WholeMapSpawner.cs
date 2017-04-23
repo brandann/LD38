@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WholeMapSpawner : MonoBehaviour {
 
@@ -27,15 +28,23 @@ public class WholeMapSpawner : MonoBehaviour {
 
 	#region Levels
 	private LevelVariables _lvl1, _lvl2, _lvl3;
+	private Dictionary<int, LevelVariables> _levelLookup;
 	#endregion 
 
 	private const float BUFFER_SIZE = 10;
 	private GameObject _player;
+	private CameraManager _cameraManager;
 
 	private enum BufferSide { Left, Right, Up, Down };
 
 	// Use this for initialization
 	void Start() {
+
+		CreateLevels();
+		
+
+		_cameraManager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
+		_cameraManager.OnLevelup += HandleLevelUp;
 		
 
 		_player = GameObject.Find("Player");
@@ -47,13 +56,25 @@ public class WholeMapSpawner : MonoBehaviour {
 		}
 
 		if (PrefabOne == null)
+			return;			
+	}
+
+	void HandleLevelUp(int lvlNum)
+	{
+		LevelVariables nextLvl = null;
+		bool foundLevel = _levelLookup.TryGetValue(lvlNum, out nextLvl);
+
+		if(foundLevel == false)
+		{
+			Debug.LogError("unable to find level");
 			return;
+		}
 
-
-		//StartCoroutine("SpawnInitialMap");
+		LoadLevelParameters(nextLvl);
 		PopulateInitialWorldAtOnce();
 		StartCoroutine("SpawnContinuous");
 	}
+
 
 	void LoadLevelParameters(LevelVariables lvl)
 	{
@@ -204,9 +225,10 @@ public class WholeMapSpawner : MonoBehaviour {
 			MaxContinuousScale = 1.8f
 		};
 
-
-
-
+		_levelLookup = new Dictionary<int, LevelVariables>();
+		_levelLookup.Add(1, _lvl1);
+		_levelLookup.Add(2, _lvl2);
+		_levelLookup.Add(3, _lvl3);
 	}
 
 	private class LevelVariables
