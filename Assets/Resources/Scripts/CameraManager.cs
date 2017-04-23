@@ -8,6 +8,8 @@ public class CameraManager : MonoBehaviour {
     public event LevelupHandler OnLevelup = delegate { };
     public static float WinWaitTimeToRestart = 3;
 
+    public static int FinalScore;
+
     private int _currentLevel = 1;
     public const int MAX_LEVEL = 4;
     public int CurrentLevel

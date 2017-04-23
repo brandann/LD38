@@ -11,8 +11,20 @@ public class Player2AxisMovement : MonoBehaviour
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
     public bool zoomoncollection;
 
-    private const int MAX_SCORE = 999;
+    //private const int MAX_SCORE = 999;
     private const float MIN_PLAYER_SIZE = .4f;
+
+    private int myscore;
+    private int Score
+    {
+        get { return myscore; }
+        set 
+        {
+            myscore = value;
+            if (myscore > CameraManager.FinalScore)
+                CameraManager.FinalScore = myscore;
+        }
+    }
     private int _score = 0;
     public Text scoreText;
     public Text NotificationText;
@@ -43,7 +55,7 @@ public class Player2AxisMovement : MonoBehaviour
     {
         mVelocity = new Vector3(0, 0, 0);
         mStartingPosition = transform.position;
-        _score = (int) this.transform.localScale.x;
+        //_score = (int) this.transform.localScale.x;
         GameObject.Find("Main Camera").GetComponent<CameraManager>().OnLevelup += this.OnLevelUp;
 	}
 
@@ -76,7 +88,7 @@ public class Player2AxisMovement : MonoBehaviour
         
         GetComponent<Rigidbody2D>().velocity = (mVelocity.normalized * mVelocity.magnitude * _speed);
 
-        scoreText.text = "" + _score;
+        scoreText.text = "" + Score;
     }
 
 	public void scaleme(float s)
@@ -105,7 +117,7 @@ public class Player2AxisMovement : MonoBehaviour
         
         var newx = this.transform.localScale.x + (x * PlanetAbsordFactor);
         var s = Mathf.Max(x, 1);
-        _score += (int) s;
+        Score += (int)s;
         this.transform.localScale = new Vector3(newx, newx, newx);
 
         if (win)
@@ -136,7 +148,7 @@ public class Player2AxisMovement : MonoBehaviour
         while (x>.2f)
         {
             this.transform.localScale = new Vector3(x * WinShrinkRate, x * WinShrinkRate, x * WinShrinkRate);
-            this._score += 1;
+            Score += 1;
             x = this.transform.localScale.x;
             yield return new WaitForSeconds(WinShrinkWaitTime);
         }
@@ -159,138 +171,138 @@ public class Player2AxisMovement : MonoBehaviour
 		bm.MakeBurst(30, Color.white, this.transform.position, this.transform.localScale.x);
 		GameObject.Find("Main Camera").GetComponent<CameraManager>().restartAfter3Seconds();
 
-        if (_score == MAX_SCORE)
-        {
-            NotificationText.text = "You got all the gold! the weight of your bounty crushed you... you die.";
-        }
-        else
-        {
-            var r = Random.Range(0, 4);
-            switch (r)
-            {
-                case 0:
-                    NotificationText.text = "hahahahahahahaha. dead.";
-                    break;
-                case 1:
-                    NotificationText.text = "What happened? you were our only hope";
-                    break;
-                case 2:
-                    NotificationText.text = "null == player1";
-                    break;
-                case 3:
-                    NotificationText.text = "kjnasek;jnr;ak34j5nk34jtnk;j3qn6kqj3nktn";
-                    break;
-            }
+        //if (CameraManager.FinalScore == MAX_SCORE)
+        //{
+        //    NotificationText.text = "You got all the gold! the weight of your bounty crushed you... you die.";
+        //}
+        //else
+        //{
+        //    var r = Random.Range(0, 4);
+        //    switch (r)
+        //    {
+        //        case 0:
+        //            NotificationText.text = "hahahahahahahaha. dead.";
+        //            break;
+        //        case 1:
+        //            NotificationText.text = "What happened? you were our only hope";
+        //            break;
+        //        case 2:
+        //            NotificationText.text = "null == player1";
+        //            break;
+        //        case 3:
+        //            NotificationText.text = "kjnasek;jnr;ak34j5nk34jtnk;j3qn6kqj3nktn";
+        //            break;
+        //    }
             
-        }
+        //}
 
 		Destroy(this.gameObject);
 	}
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if(c.gameObject.tag == "Collection")
-        {
-            var colgo = c.gameObject.GetComponent<CollectionBehavior>();
-            var key = colgo.GetKey();
-            this.GetComponent<SpriteRenderer>().color = CollectionBehavior.GetKeyColor(key);
-            this.key = key;
-            print("I became a: " + key.ToString());
-            var collectionposition = c.gameObject.transform.position;
-            var collectionscale = c.gameObject.transform.localScale.x;
+        //if(c.gameObject.tag == "Collection")
+        //{
+        //    var colgo = c.gameObject.GetComponent<CollectionBehavior>();
+        //    var key = colgo.GetKey();
+        //    this.GetComponent<SpriteRenderer>().color = CollectionBehavior.GetKeyColor(key);
+        //    this.key = key;
+        //    print("I became a: " + key.ToString());
+        //    var collectionposition = c.gameObject.transform.position;
+        //    var collectionscale = c.gameObject.transform.localScale.x;
 
-            if(zoomoncollection)
-            {
-                var factor = CollectionBehavior.GetZoomFactor(key);
-                if (factor == 1)
-                    GameObject.Find("Main Camera").GetComponent<SimpleZoom>().ZoomOut();
-                if (factor == -1)
-                    GameObject.Find("Main Camera").GetComponent<SimpleZoom>().ZoomIn();
-            }
+        //    if(zoomoncollection)
+        //    {
+        //        var factor = CollectionBehavior.GetZoomFactor(key);
+        //        if (factor == 1)
+        //            GameObject.Find("Main Camera").GetComponent<SimpleZoom>().ZoomOut();
+        //        if (factor == -1)
+        //            GameObject.Find("Main Camera").GetComponent<SimpleZoom>().ZoomIn();
+        //    }
 
-            Destroy(c.gameObject);
+        //    Destroy(c.gameObject);
 
-            var bgo = Instantiate(burstPrefab);
-            bgo.transform.position = collectionposition;
-            var bm = bgo.GetComponent<BurstManager>();
-            bm.MakeBurst(10, CollectionBehavior.GetKeyColor(key), collectionposition, c.gameObject.transform.localScale.x);
+        //    var bgo = Instantiate(burstPrefab);
+        //    bgo.transform.position = collectionposition;
+        //    var bm = bgo.GetComponent<BurstManager>();
+        //    bm.MakeBurst(10, CollectionBehavior.GetKeyColor(key), collectionposition, c.gameObject.transform.localScale.x);
 
             
 
-            if(CollectionBehavior.Key.Blue == key)
-            {
-                var r = Random.Range(0, 4);
-                switch (r)
-                {
-                    case 0:
-                        NotificationText.text = "You found a blue key. go find a blue gate!";
-                        break;
-                    case 1:
-                        NotificationText.text = "Why so blue?";
-                        break;
-                    case 2:
-                        NotificationText.text = "Whats this? A blue key? for me?!";
-                        break;
-                    case 3:
-                        NotificationText.text = "";
-                        break;
-                }
-            }
-            else if (CollectionBehavior.Key.Green == key)
-            {
-                var r = Random.Range(0, 4);
-                switch (r)
-                {
-                    case 0:
-                        NotificationText.text = "You found a green key. go find a green gate!";
-                        break;
-                    case 1:
-                        NotificationText.text = "This green key will unlock a blue gate! MADE YOU LOOK! HAHAHA";
-                        break;
-                    case 2:
-                        NotificationText.text = "rawr? wrong game? oh, just find the gate and get this over...";
-                        break;
-                    case 3:
-                        NotificationText.text = "";
-                        break;
-                }
-            }
-        }
+        //    if(CollectionBehavior.Key.Blue == key)
+        //    {
+        //        var r = Random.Range(0, 4);
+        //        switch (r)
+        //        {
+        //            case 0:
+        //                NotificationText.text = "You found a blue key. go find a blue gate!";
+        //                break;
+        //            case 1:
+        //                NotificationText.text = "Why so blue?";
+        //                break;
+        //            case 2:
+        //                NotificationText.text = "Whats this? A blue key? for me?!";
+        //                break;
+        //            case 3:
+        //                NotificationText.text = "";
+        //                break;
+        //        }
+        //    }
+        //    else if (CollectionBehavior.Key.Green == key)
+        //    {
+        //        var r = Random.Range(0, 4);
+        //        switch (r)
+        //        {
+        //            case 0:
+        //                NotificationText.text = "You found a green key. go find a green gate!";
+        //                break;
+        //            case 1:
+        //                NotificationText.text = "This green key will unlock a blue gate! MADE YOU LOOK! HAHAHA";
+        //                break;
+        //            case 2:
+        //                NotificationText.text = "rawr? wrong game? oh, just find the gate and get this over...";
+        //                break;
+        //            case 3:
+        //                NotificationText.text = "";
+        //                break;
+        //        }
+        //    }
+        //}
 
-        if (c.gameObject.tag == "Goal")
-        {
-            var bgo = Instantiate(burstPrefab);
-            bgo.transform.position = c.gameObject.transform.position;
-            var bm = bgo.GetComponent<BurstManager>();
-            bm.MakeBurst(10, Color.yellow, c.gameObject.transform.position, c.gameObject.transform.localScale.x);
+        //if (c.gameObject.tag == "Goal")
+        //{
+        //    var bgo = Instantiate(burstPrefab);
+        //    bgo.transform.position = c.gameObject.transform.position;
+        //    var bm = bgo.GetComponent<BurstManager>();
+        //    bm.MakeBurst(10, Color.yellow, c.gameObject.transform.position, c.gameObject.transform.localScale.x);
 
-            Destroy(c.gameObject);
+        //    Destroy(c.gameObject);
 
-            _score++;
-            var r = Random.Range(0, 4);
-            switch(r)
-            {
-                case 0:
-                    NotificationText.text = "Great! you got a yellow block, Go find keys and get more yellow blocks";
-                    break;
-                case 1:
-                    NotificationText.text = "All Hail the Yellow Blocks";
-                    break;
-                case 2:
-                    NotificationText.text = "GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD";
-                    break;
-                case 3:
-                    NotificationText.text = "One step closer to greatness!";
-                    break;
-            }
+        //    _score++;
+        //    var r = Random.Range(0, 4);
+        //    switch(r)
+        //    {
+        //        case 0:
+        //            NotificationText.text = "Great! you got a yellow block, Go find keys and get more yellow blocks";
+        //            break;
+        //        case 1:
+        //            NotificationText.text = "All Hail the Yellow Blocks";
+        //            break;
+        //        case 2:
+        //            NotificationText.text = "GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD GOLD";
+        //            break;
+        //        case 3:
+        //            NotificationText.text = "One step closer to greatness!";
+        //            break;
+        //    }
 
-            if(_score == MAX_SCORE)
-            {
-                kill();
-            }
+        //    if(_score == MAX_SCORE)
+        //    {
+        //        kill();
+        //    }
 
-            absorb(10);
-        }
+        //    absorb(10);
+        //}
     }
 
     private CollectionBehavior.Key _key = CollectionBehavior.Key.White;
