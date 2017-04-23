@@ -3087,10 +3087,10 @@ MonoBehaviour:
   MaxSizePrefabOne: 1
   SpawnRateSecondsPrefabOne: 8
   distancemultiplier1: 3
-  PrefabTwo: {fileID: 1000012919605892, guid: f986dbd8bbd492046aafdf8158fc7a73, type: 2}
-  MinSizePrefabTwo: 1
-  MaxSizePrefabTwo: 1
-  SpawnRateSecondsPrefabTwo: 600
+  PrefabTwo: {fileID: 0}
+  MinSizePrefabTwo: 0
+  MaxSizePrefabTwo: 0
+  SpawnRateSecondsPrefabTwo: 1
   distancemultiplier2: 0
   PrefabThree: {fileID: 0}
   MinSizePrefabThree: 0
