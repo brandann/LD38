@@ -11,6 +11,7 @@ public class Player2AxisMovement : MonoBehaviour
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
     public bool zoomoncollection;
 
+    public const int MAX_SCORE = 2;
     private int _score = 0;
     public Text scoreText;
     public Text NotificationText;
@@ -41,7 +42,7 @@ public class Player2AxisMovement : MonoBehaviour
         
         GetComponent<Rigidbody2D>().velocity = (mVelocity.normalized * mVelocity.magnitude * _speed);
 
-        scoreText.text = "" + _score;
+        scoreText.text = "" + _score + "/" + MAX_SCORE;
     }
 
 	public void scaleme(float s)
@@ -62,6 +63,32 @@ public class Player2AxisMovement : MonoBehaviour
 		var bm = bgo.GetComponent<BurstManager>();
 		bm.MakeBurst(30, Color.white, this.transform.position, this.transform.localScale.x);
 		GameObject.Find("Main Camera").GetComponent<CameraManager>().restartAfter3Seconds();
+
+        if (_score == MAX_SCORE)
+        {
+            NotificationText.text = "You got all the gold! the weight of your bounty crushed you... you die.";
+        }
+        else
+        {
+            var r = Random.Range(0, 4);
+            switch (r)
+            {
+                case 0:
+                    NotificationText.text = "hahahahahahahaha. dead.";
+                    break;
+                case 1:
+                    NotificationText.text = "What happened? you were our only hope";
+                    break;
+                case 2:
+                    NotificationText.text = "null == player1";
+                    break;
+                case 3:
+                    NotificationText.text = "kjnasek;jnr;ak34j5nk34jtnk;j3qn6kqj3nktn";
+                    break;
+            }
+            
+        }
+
 		Destroy(this.gameObject);
 	}
 
@@ -160,6 +187,11 @@ public class Player2AxisMovement : MonoBehaviour
                 case 3:
                     NotificationText.text = "One step closer to greatness!";
                     break;
+            }
+
+            if(_score == MAX_SCORE)
+            {
+                kill();
             }
         }
     }
