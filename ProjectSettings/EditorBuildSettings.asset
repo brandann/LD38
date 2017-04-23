@@ -7,9 +7,9 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Main.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/PlayerInChangingWorld.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/ScaleSquares.unity
   - enabled: 1
     path: Assets/MoonEatMoon.unity

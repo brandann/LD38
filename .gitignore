@@ -51,4 +51,39 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
+ï¿½ 2017 GitHub, Inc. Terms Privacy Security Status Help
+winBuild.exe
+winBuild_Data/Managed/Assembly-CSharp.dll
+winBuild_Data/Managed/Mono.Security.dll
+winBuild_Data/Managed/System.Core.dll
+winBuild_Data/Managed/System.dll
+winBuild_Data/Managed/UnityEngine.Networking.dll
+winBuild_Data/Managed/UnityEngine.UI.dll
+winBuild_Data/Managed/UnityEngine.dll
+winBuild_Data/Managed/UnityEngine.dll.mdb
+winBuild_Data/Managed/UnityEngine.xml
+winBuild_Data/Managed/mscorlib.dll
+winBuild_Data/Mono/etc/mono/1.0/DefaultWsdlHelpGenerator.aspx
+winBuild_Data/Mono/etc/mono/1.0/machine.config
+winBuild_Data/Mono/etc/mono/2.0/Browsers/Compat.browser
+winBuild_Data/Mono/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx
+winBuild_Data/Mono/etc/mono/2.0/machine.config
+winBuild_Data/Mono/etc/mono/2.0/settings.map
+winBuild_Data/Mono/etc/mono/2.0/web.config
+winBuild_Data/Mono/etc/mono/browscap.ini
+winBuild_Data/Mono/etc/mono/config
+winBuild_Data/Mono/etc/mono/mconfig/config.xml
+winBuild_Data/Mono/mono.dll
+winBuild_Data/Resources/unity default resources
+winBuild_Data/Resources/unity_builtin_extra
+winBuild_Data/app.info
+winBuild_Data/globalgamemanagers
+winBuild_Data/globalgamemanagers.assets
+winBuild_Data/level0
+winBuild_Data/level1
+winBuild_Data/output_log.txt
+winBuild_Data/resources.assets
+winBuild_Data/resources.assets.resS
+winBuild_Data/resources.resource
+winBuild_Data/sharedassets0.assets
+winBuild_Data/sharedassets1.assets
