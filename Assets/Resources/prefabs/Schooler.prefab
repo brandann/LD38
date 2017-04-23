@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70428635ed5e08641a46b93b62adff91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  BurstManagerPrefab: {fileID: 1000014056944540, guid: f0102564c59f0fe468b177213920aa8e,
+    type: 2}
 --- !u!114 &114000011661646888
 MonoBehaviour:
   m_ObjectHideFlags: 1

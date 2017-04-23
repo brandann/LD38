@@ -6,14 +6,15 @@ public class Schooler : MonoBehaviour {
 
 	static Vector3 GlobalGoal;
 	private Vector3 _goal;
-	public GameObject Player;
-	private float Speed = 3;
+	private GameObject Player;
+	private float Speed = 9;
 	private Vector2 _direction = new Vector2(0, 0).normalized;
 	Rigidbody2D _rigidBody;
 	List<Schooler> _collidingSchoolers;
 	private float _lastRealignment;
 	private float _realignmentDuration = 2f;
 	private float _spacing = 0.5f;
+	public GameObject BurstManagerPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -80,5 +81,18 @@ public class Schooler : MonoBehaviour {
 		_collidingSchoolers.Remove(collidedSchooler);
 		print("remove collision in schooler");
 
+	}
+
+	void OnCollisionEnter2D(Collision2D other)	
+		{
+		if (other.gameObject.tag.Contains("Player"))
+		{
+			other.gameObject.SendMessage("SchoolerHit");
+			var go = Instantiate(BurstManagerPrefab);
+			go.transform.position = this.transform.position;
+			var burst = go.GetComponent<BurstManager>();
+			burst.MakeBurst(10, Color.magenta, this.transform.position, this.transform.localScale.x);
+			Destroy(this.gameObject);
+		}
 	}
 }

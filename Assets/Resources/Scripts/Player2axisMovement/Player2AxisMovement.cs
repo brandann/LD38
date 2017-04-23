@@ -36,6 +36,12 @@ public class Player2AxisMovement : MonoBehaviour
     [Range(.01f,.99f)]
     public float CometReduceSizeFactor;
 
+	[Range(0.1f, 1f)]
+	public float SchoolerReduceFactor;
+	private float _schoolerIgnoreTime = 1;
+	private float _lastSchoolerHitTime;
+
+
     [Range(.01f, .99f)]
     public float PlanetAbsordFactor;
 
@@ -57,6 +63,7 @@ public class Player2AxisMovement : MonoBehaviour
         mStartingPosition = transform.position;
         //_score = (int) this.transform.localScale.x;
         GameObject.Find("Main Camera").GetComponent<CameraManager>().OnLevelup += this.OnLevelUp;
+		_lastSchoolerHitTime = Time.timeSinceLevelLoad;
 	}
 
     // Update is called once per frame
@@ -133,6 +140,22 @@ public class Player2AxisMovement : MonoBehaviour
                 break;
         }
     }
+
+	public void SchoolerHit()
+	{
+		if (Time.timeSinceLevelLoad - _lastSchoolerHitTime < _schoolerIgnoreTime)
+			return;
+
+		_lastSchoolerHitTime = Time.timeSinceLevelLoad;
+
+		var x = this.transform.localScale.x * SchoolerReduceFactor;
+		x = Mathf.Max(x, MIN_PLAYER_SIZE);
+		this.transform.localScale = new Vector3(x, x, x);
+		var go = Instantiate(burstPrefab);
+		go.transform.position = this.transform.position;
+		var burst = go.GetComponent<BurstManager>();
+		burst.MakeBurst(10, Color.white, this.transform.position, this.transform.localScale.x);
+	}
 
 
     public void absorb(float x)
