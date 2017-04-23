@@ -109,15 +109,19 @@ public class Player2AxisMovement : MonoBehaviour
 
         if (this.transform.localScale.x >= SizeToWin)
         {
-            OnPlayerLevelup();
+            if(!win)
+                OnPlayerLevelup();
         }
     }
 
     public void OnLevelUp(int lvl)
     {
-        win = true;
-        StartCoroutine("WinRoutine");
-        StartCoroutine("StartOverRoutine");
+        if(lvl != 1)
+        {
+            win = true;
+            StartCoroutine("WinRoutine");
+            StartCoroutine("StartOverRoutine");
+        }
     }
     
     // COROUTINE FOR SPEED MOD

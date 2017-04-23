@@ -62,6 +62,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	#endregion
 	
 
+
 	#region Schooler Enemy
 	public GameObject SchoolingEnemyPrefab;
 	public float SchoolerSpawnDuration;
@@ -78,8 +79,39 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		_lastSpawnTimePrefabThree =
 		_lastSpawnTimePrefabFour = Time.timeSinceLevelLoad;
         SpawnRateDurationPrefabOne = SpawnRateSecondsPrefabOne + Random.Range(SpawnRateSecondsPrefabOne * .8f, SpawnRateSecondsPrefabOne * 1.2f);
-
+        GameObject.Find("Main Camera").GetComponent<CameraManager>().OnLevelup += CometBehavior_OnLevelup;
 	}
+
+    private void CometBehavior_OnLevelup(int i)
+    {
+        switch(i)
+        {
+            case 1:
+                SpawnRateSecondsPrefabOne = 999;
+                SpawnRateSecondsPrefabTwo = 999;
+                break;
+            case 2:
+                SpawnRateSecondsPrefabOne = 13;
+                SpawnRateSecondsPrefabTwo = 999;
+                break;
+            case 3:
+                SpawnRateSecondsPrefabOne = 11;
+                SpawnRateSecondsPrefabTwo = 12;
+                break;
+            case 4:
+                SpawnRateSecondsPrefabOne = 9;
+                SpawnRateSecondsPrefabTwo = 10;
+                break;
+            case 5:
+                SpawnRateSecondsPrefabOne = 7;
+                SpawnRateSecondsPrefabTwo = 8;
+                break;
+            case 6:
+                SpawnRateSecondsPrefabOne = 5;
+                SpawnRateSecondsPrefabTwo = 6;
+                break;
+        }
+    }
 
 	private void SpawnFromCircleToPlayer(GameObject prefab, float distancemultiplier = 1)
 	{
