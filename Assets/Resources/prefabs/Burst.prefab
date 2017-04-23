@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02fc4341840c5654cb4cd6be24b06ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomSpeedRange: {x: 0.8, y: 1}
+  RandomSpeedRange: {x: 0.5, y: 3}
   RandomDecayRate: {x: 0.97, y: 0.99}
 --- !u!212 &212000012559715972
 SpriteRenderer:

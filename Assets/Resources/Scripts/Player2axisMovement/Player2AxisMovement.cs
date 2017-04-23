@@ -16,6 +16,11 @@ public class Player2AxisMovement : MonoBehaviour
     public Text scoreText;
     public Text NotificationText;
 
+    public float WinWaitTimeToRestart;// = .5f;
+    public float WinShrinkRate;// = .9f;
+    public float WinShrinkWaitTime;// = .01f;
+    public float WinStartSize;// = .2f;
+
     private bool win = false;
 
     void Start()
@@ -65,10 +70,11 @@ public class Player2AxisMovement : MonoBehaviour
         _score += (int) newx;
         this.transform.localScale = new Vector3(newx, newx, newx);
 
-        if(this.transform.localScale.x >= 3)
+        if(this.transform.localScale.x >= 8)
         {
             win = true;
             StartCoroutine("WinRoutine");
+            StartCoroutine("StartOverRoutine");
         }
     }
     
@@ -76,8 +82,29 @@ public class Player2AxisMovement : MonoBehaviour
     IEnumerator WinRoutine()
     {
         // WAIT FOR THE MOD DURATION TO FINISH
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("MoonEatMoon");
+        yield return new WaitForSeconds(WinWaitTimeToRestart);
+        var l = GameObject.FindGameObjectsWithTag("SpawnedBlocks");
+        foreach(GameObject p in l)
+        {
+            Destroy(p);
+        }
+        
+        yield return null;
+    }
+
+    IEnumerator StartOverRoutine()
+    {
+        // WAIT FOR THE MOD DURATION TO FINISH
+        var x = this.transform.localScale.x;
+        while (x>.2f)
+        {
+            this.transform.localScale = new Vector3(x * WinShrinkRate, x * WinShrinkRate, x * WinShrinkRate);
+            this._score += 1;
+            x = this.transform.localScale.x;
+            yield return new WaitForSeconds(WinShrinkWaitTime);
+        }
+        this.transform.localScale = new Vector3(WinStartSize, WinStartSize, WinStartSize);
+        win = false;
         yield return null;
     }
 
