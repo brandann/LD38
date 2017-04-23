@@ -67,6 +67,7 @@ public class CameraManager : MonoBehaviour {
             Destroy(p);
         }
         OnLevelup(_currentLevel);
+        print("level: " + _currentLevel);
         yield return null;
     }
 }
