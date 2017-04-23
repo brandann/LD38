@@ -11,7 +11,7 @@ public class Player2AxisMovement : MonoBehaviour
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
     public bool zoomoncollection;
 
-    private const int MAX_SCORE = 5;
+    private const int MAX_SCORE = 999;
     private int _score = 0;
     public Text scoreText;
     public Text NotificationText;
@@ -42,7 +42,7 @@ public class Player2AxisMovement : MonoBehaviour
         
         GetComponent<Rigidbody2D>().velocity = (mVelocity.normalized * mVelocity.magnitude * _speed);
 
-        scoreText.text = "" + _score + "/" + MAX_SCORE;
+        scoreText.text = "" + this.transform.localScale.x;
     }
 
 	public void scaleme(float s)
@@ -55,6 +55,12 @@ public class Player2AxisMovement : MonoBehaviour
 	}
 
 	public GameObject burstPrefab;
+
+    public void absorb(float x)
+    {
+        var newx = this.transform.localScale.x + (x * .1f);
+        this.transform.localScale = new Vector3(newx, newx, newx);
+    }
 
 	public void kill()
 	{
@@ -193,6 +199,8 @@ public class Player2AxisMovement : MonoBehaviour
             {
                 kill();
             }
+
+            absorb(10);
         }
     }
 

@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 	#region ButtonPress
 	public void PlayButtonPressed()
     {
-        SceneManager.LoadScene((int) scenes.PlayerInChangingWorld);
+        SceneManager.LoadScene("MoonEatMoon");
     }
 
     public void QuitButtonPressed()
