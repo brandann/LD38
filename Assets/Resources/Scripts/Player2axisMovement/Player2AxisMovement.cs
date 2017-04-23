@@ -141,7 +141,7 @@ public class Player2AxisMovement : MonoBehaviour
             yield return new WaitForSeconds(WinShrinkWaitTime);
         }
         this.transform.localScale = new Vector3(WinStartSize, WinStartSize, WinStartSize);
-        GameObject.Find("Spawner").GetComponent<WholeMapSpawner>().StartCoroutine("SpawnMap");
+        //GameObject.Find("Spawner").GetComponent<WholeMapSpawner>().StartCoroutine("SpawnMap");
         win = false;
         yield return null;
     }
