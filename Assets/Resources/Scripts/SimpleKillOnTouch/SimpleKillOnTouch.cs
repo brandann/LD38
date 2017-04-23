@@ -41,12 +41,6 @@ public class SimpleKillOnTouch : MonoBehaviour {
                 print("kill player with trigger");
                 c.SendMessage("kill");
             }
-            else
-            {
-                print("Absorbed to player");
-                c.gameObject.SendMessage("absorb", this.transform.localScale.x);
-                Destroy(this.gameObject);
-            }
         }
 
 	}
