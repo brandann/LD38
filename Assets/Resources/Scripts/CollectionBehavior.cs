@@ -4,7 +4,7 @@ using System.Collections;
 public class CollectionBehavior : MonoBehaviour {
 
     public enum Key { White, Blue, Green }
-    private Key myKey = Key.Blue;
+    public Key myKey;
 
     public Color BlueColor = Color.blue;
     public Color GreenColor = Color.green;

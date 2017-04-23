@@ -110,7 +110,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		go.transform.position = randvec;
 
 		var psize = Player.transform.lossyScale.x;
-		var randscale = Random.Range(psize/10, psize*0.9f);
+		var randscale = Random.Range(psize/10, psize*2f);
 
 		go.transform.localScale = new Vector3(randscale, randscale, randscale);
 
@@ -122,7 +122,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	private void SpawnCollection()
 	{
 		var go = Instantiate(CollectionBlockPrefab);
-        go.GetComponent<CollectionBehavior>().SpawnRandomKey();
+        //go.GetComponent<CollectionBehavior>().SpawnRandomKey();
 		var randvec = Random.insideUnitCircle;
 		randvec = Random.Range(this.transform.localScale.x/5, this.transform.localScale.x) * randvec;
 		
