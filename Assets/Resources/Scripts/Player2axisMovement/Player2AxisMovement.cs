@@ -32,6 +32,8 @@ public class Player2AxisMovement : MonoBehaviour
 
     private bool win = false;
 
+    public GameObject burstPrefab;
+
     void Start()
     {
         mVelocity = new Vector3(0, 0, 0);
@@ -71,13 +73,15 @@ public class Player2AxisMovement : MonoBehaviour
         this._speed = 12 * size;
 	}
 
-	public GameObject burstPrefab;
-
     public void comethit()
     {
         var x = this.transform.localScale.x * CometReduceSizeFactor;
         x = Mathf.Max(x, MIN_PLAYER_SIZE);
         this.transform.localScale = new Vector3(x, x, x);
+        var go = Instantiate(burstPrefab);
+        go.transform.position = this.transform.position;
+        var burst = go.GetComponent<BurstManager>();
+        burst.MakeBurst(10, Color.white, this.transform.position, this.transform.localScale.x);
     }
 
     public void absorb(float x)
