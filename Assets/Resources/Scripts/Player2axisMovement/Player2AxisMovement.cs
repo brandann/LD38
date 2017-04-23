@@ -16,10 +16,13 @@ public class Player2AxisMovement : MonoBehaviour
     public Text scoreText;
     public Text NotificationText;
 
+    private bool win = false;
+
     void Start()
     {
         mVelocity = new Vector3(0, 0, 0);
         mStartingPosition = transform.position;
+        _score = (int) this.transform.localScale.x;
 	}
 
     // Update is called once per frame
@@ -42,7 +45,7 @@ public class Player2AxisMovement : MonoBehaviour
         
         GetComponent<Rigidbody2D>().velocity = (mVelocity.normalized * mVelocity.magnitude * _speed);
 
-        scoreText.text = "" + this.transform.localScale.x;
+        scoreText.text = "" + _score;
     }
 
 	public void scaleme(float s)
@@ -58,12 +61,30 @@ public class Player2AxisMovement : MonoBehaviour
 
     public void absorb(float x)
     {
-        var newx = this.transform.localScale.x + (x * .1f);
+        var newx = this.transform.localScale.x + (x * .5f);
+        _score += (int) newx;
         this.transform.localScale = new Vector3(newx, newx, newx);
+
+        if(this.transform.localScale.x >= 3)
+        {
+            win = true;
+            StartCoroutine("WinRoutine");
+        }
+    }
+    
+    // COROUTINE FOR SPEED MOD
+    IEnumerator WinRoutine()
+    {
+        // WAIT FOR THE MOD DURATION TO FINISH
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("MoonEatMoon");
+        yield return null;
     }
 
 	public void kill()
 	{
+        if (win)
+            return;
 		var bgo = Instantiate(burstPrefab);
 		bgo.transform.position = this.transform.position;
 		var bm = bgo.GetComponent<BurstManager>();
