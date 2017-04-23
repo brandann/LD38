@@ -4,9 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour {
 
+    public delegate void LevelupHandler(int level);
+    public event LevelupHandler OnLevelup = delegate { };
+
 	// Use this for initialization
 	void Start () {
-	
+        GameObject.Find("Player").GetComponent<Player2AxisMovement>().OnPlayerLevelup += this.PlayerLevelup;
 	}
 	
 	// Update is called once per frame
@@ -27,4 +30,10 @@ public class CameraManager : MonoBehaviour {
 		SceneManager.LoadScene((int)MainMenu.scenes.Main);
 		yield return null;
 	}
+
+    private void PlayerLevelup()
+    {
+        print("player leveled up on global");
+        OnLevelup(-1);
+    }
 }
