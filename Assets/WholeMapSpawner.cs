@@ -19,13 +19,15 @@ public class WholeMapSpawner : MonoBehaviour {
 	#region ContinuousPrefab
 	public GameObject ContinuousPrefab;
 	public float SpawnTimeSecondsContinuousPrefab;
-	public int MaxContinuousPrefabToSpawn;
-	public float DistanceFromPlayer;
+	public int MaxContinuousPrefabToSpawn;	
 	public float MinContinuousScale;
 	public float MaxContinuousScale;
 	private int _totalContinousPrefabsSpawned;
-	
 	#endregion
+
+	#region Levels
+	private LevelVariables _lvl1, _lvl2, _lvl3;
+	#endregion 
 
 	private const float BUFFER_SIZE = 10;
 	private GameObject _player;
@@ -34,6 +36,7 @@ public class WholeMapSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		
 
 		_player = GameObject.Find("Player");
 
@@ -52,6 +55,19 @@ public class WholeMapSpawner : MonoBehaviour {
 		StartCoroutine("SpawnContinuous");
 	}
 
+	void LoadLevelParameters(LevelVariables lvl)
+	{
+		MinSizePrefabOne = lvl.MinSizePrefabOne;
+		MaxSizePrefabOne = lvl.MaxSizePrefabOne;
+		NumberOfItemsToSpawn = lvl.NumberOfItemsToSpawn;
+		//MinX = lvl.MinX;
+		//MinY = lvl.MinY;
+		//MaxX = lvl.MaxX;
+		//MaxY = lvl.MaxY;
+		MinSpeed = lvl.MinSpeed;
+		MaxSpeed = lvl.MaxSpeed;
+	}
+
 	void PopulateInitialWorldAtOnce()
 	{
 		BufferSide currSide;
@@ -68,7 +84,7 @@ public class WholeMapSpawner : MonoBehaviour {
 		while (_totalContinousPrefabsSpawned < MaxContinuousPrefabToSpawn)
 		{
 			yield return new WaitForSeconds(SpawnTimeSecondsContinuousPrefab);
-			GameObject go = SpawnPrefabAwayFromPlayer(ContinuousPrefab, DistanceFromPlayer);
+			GameObject go = SpawnPrefabAwayFromPlayer(ContinuousPrefab, BUFFER_SIZE);
 			GiveRandomSpeed(go);
 			GiveRandomScale(go, MinContinuousScale, MaxContinuousScale);
 			_totalContinousPrefabsSpawned++;
@@ -78,7 +94,7 @@ public class WholeMapSpawner : MonoBehaviour {
 	}
 
 	// COROUTINE FOR SPEED MOD
-	public IEnumerator SpawnInitialMap()
+	private IEnumerator SpawnInitialMap()
 	{
 		// WAIT FOR THE MOD DURATION TO FINISH
 
@@ -148,5 +164,68 @@ public class WholeMapSpawner : MonoBehaviour {
 		GiveRandomSpeed(go);		
 	}
 
+	private void CreateLevels()
+	{
+		_lvl1 = new LevelVariables {
+			MinSizePrefabOne = .01f,
+			MaxSizePrefabOne = 2f,
+			NumberOfItemsToSpawn = 30,
+			MinSpeed = -4f,
+			MaxSpeed = 2f,
+			SpawnTimeSecondsContinuousPrefab = 2,
+			MaxContinuousPrefabToSpawn = 20,
+			MinContinuousScale = 0.2f,
+			MaxContinuousScale = 1f
+		} ;
+
+		_lvl2 = new LevelVariables
+		{
+			MinSizePrefabOne = .01f,
+			MaxSizePrefabOne = 8f,
+			NumberOfItemsToSpawn = 40,
+			MinSpeed = -4f,
+			MaxSpeed = 4f,
+			SpawnTimeSecondsContinuousPrefab = 2,
+			MaxContinuousPrefabToSpawn = 20,
+			MinContinuousScale = 0.2f,
+			MaxContinuousScale = 1.8f
+		};
+
+		_lvl3 = new LevelVariables
+		{
+			MinSizePrefabOne = .05f,
+			MaxSizePrefabOne = 8f,
+			NumberOfItemsToSpawn = 40,
+			MinSpeed = -4f,
+			MaxSpeed = 4f,
+			SpawnTimeSecondsContinuousPrefab = 2,
+			MaxContinuousPrefabToSpawn = 20,
+			MinContinuousScale = 0.2f,
+			MaxContinuousScale = 1.8f
+		};
+
+
+
+
+	}
+
+	private class LevelVariables
+	{
+		public float MinSizePrefabOne { get;  set; }
+		public float MaxSizePrefabOne { get;  set; }
+		public int NumberOfItemsToSpawn { get;  set; }
+		//public int MinX { get;  set; }
+		//public int MinY { get;  set; }
+		//public int MaxX { get;  set; }
+		//public int MaxY { get;  set; }
+		public float MinSpeed { get;  set; }
+		public float MaxSpeed { get;  set; }
+
+		public float SpawnTimeSecondsContinuousPrefab { get;  set; }
+		public int MaxContinuousPrefabToSpawn { get;  set; }
+		public float MinContinuousScale { get;  set; }
+		public float MaxContinuousScale { get;  set; }
+
+	}
 
 }
