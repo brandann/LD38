@@ -317,7 +317,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.8
   m_Text: '<color=yellow><b>m o o n - e a t - m o o n</b></color>
 
 
@@ -328,7 +328,12 @@ MonoBehaviour:
     Gary Mixson
 
 
-    < press enter >'
+    < press enter >
+
+
+    Music By RutgerMuller
+
+    (Freesounds.org)'
 --- !u!222 &934451398
 CanvasRenderer:
   m_ObjectHideFlags: 0
