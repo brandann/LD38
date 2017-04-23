@@ -11,7 +11,7 @@ public class Player2AxisMovement : MonoBehaviour
     private CollectionBehavior.Key Key = CollectionBehavior.Key.White;
     public bool zoomoncollection;
 
-    private const int MAX_SCORE = 5;
+    private const int MAX_SCORE = 999;
     private int _score = 0;
     public Text scoreText;
     public Text NotificationText;
@@ -199,6 +199,8 @@ public class Player2AxisMovement : MonoBehaviour
             {
                 kill();
             }
+
+            absorb(10);
         }
     }
 
