@@ -12,6 +12,7 @@ public class Player2AxisMovement : MonoBehaviour
     public bool zoomoncollection;
 
     private const int MAX_SCORE = 999;
+    private const float MIN_PLAYER_SIZE = .4f;
     private int _score = 0;
     public Text scoreText;
     public Text NotificationText;
@@ -20,6 +21,14 @@ public class Player2AxisMovement : MonoBehaviour
     public float WinShrinkRate;// = .9f;
     public float WinShrinkWaitTime;// = .01f;
     public float WinStartSize;// = .2f;
+
+    [Range(.01f,.99f)]
+    public float CometReduceSizeFactor;
+
+    [Range(.01f, .99f)]
+    public float PlanetAbsordFactor;
+
+    public int SizeToWin;
 
     private bool win = false;
 
@@ -66,19 +75,19 @@ public class Player2AxisMovement : MonoBehaviour
 
     public void comethit()
     {
-        var x = this.transform.localScale.x * .5f;
-        x = Mathf.Max(x, .4f);
+        var x = this.transform.localScale.x * CometReduceSizeFactor;
+        x = Mathf.Max(x, MIN_PLAYER_SIZE);
         this.transform.localScale = new Vector3(x, x, x);
     }
 
     public void absorb(float x)
     {
-        var newx = this.transform.localScale.x + (x * .5f);
+        var newx = this.transform.localScale.x + (x * PlanetAbsordFactor);
         var s = Mathf.Max(x, 1);
         _score += (int) s;
         this.transform.localScale = new Vector3(newx, newx, newx);
 
-        if(this.transform.localScale.x >= 8)
+        if (this.transform.localScale.x >= SizeToWin)
         {
             win = true;
             StartCoroutine("WinRoutine");
