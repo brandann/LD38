@@ -6,6 +6,7 @@ public class CameraManager : MonoBehaviour {
 
     public delegate void LevelupHandler(int level);
     public event LevelupHandler OnLevelup = delegate { };
+    public static float WinWaitTimeToRestart = 3;
 
     private int _currentLevel = 1;
     public const int MAX_LEVEL = 4;
@@ -45,6 +46,27 @@ public class CameraManager : MonoBehaviour {
         print("player leveled up on global");
         CurrentLevel++;
         if (CurrentLevel <= MAX_LEVEL)
-            OnLevelup(_currentLevel);
+            StartCoroutine("WinRoutine");
+    }
+
+    // COROUTINE FOR SPEED MOD
+    IEnumerator WinRoutine()
+    {
+        // WAIT FOR THE MOD DURATION TO FINISH
+        yield return new WaitForSeconds(WinWaitTimeToRestart);
+        var l = GameObject.FindGameObjectsWithTag("SpawnedBlocks");
+        foreach (GameObject p in l)
+        {
+            Destroy(p);
+        }
+
+        //Planet
+        var planets = GameObject.FindGameObjectsWithTag("Planet");
+        foreach (GameObject p in planets)
+        {
+            Destroy(p);
+        }
+        OnLevelup(_currentLevel);
+        yield return null;
     }
 }
