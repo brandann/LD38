@@ -6,6 +6,9 @@ public class Planet : MonoBehaviour
 	private Rigidbody2D _rigidBody2d;
 	private Vector2 _oldVelocity;
 
+    public float MinBounceDifference;
+    public float MaxBounceDifference;
+
 	void Start()
 	{
 		_rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
@@ -25,16 +28,35 @@ public class Planet : MonoBehaviour
 			var thisscale = this.gameObject.transform.localScale.x;
 			var otherscale = c.gameObject.transform.localScale.x;
 
-			if (thisscale > otherscale)
+            var diff = (thisscale / otherscale) - 1;
+
+            // PLANET IS LARGER THAN THE PLAYER
+            if (thisscale > otherscale)
 			{
-				print("kill player");
-				c.gameObject.SendMessage("kill");
+                if(Mathf.Abs(diff) < MaxBounceDifference)
+                {
+                    // do nothing
+                }
+                else
+                {
+                    print("kill player");
+                    c.gameObject.SendMessage("kill");
+                }
 			}
+
+            // PLANET IS SMALLER THAN THE PLAYER
             else
             {
-                print("Absorbed to player");
-                c.gameObject.SendMessage("absorb", this.transform.localScale.x);
-                Destroy(this.gameObject);
+                if(Mathf.Abs(diff) < MinBounceDifference)
+                {
+                    // do nothing
+                }
+                else
+                {
+                    print("Absorbed to player");
+                    c.gameObject.SendMessage("absorb", this.transform.localScale.x);
+                    Destroy(this.gameObject);
+                }
             }
 		}
 		else if (c.gameObject.tag.Contains("Wall") )
@@ -59,6 +81,7 @@ public class Planet : MonoBehaviour
 		{
 			var thisscale = this.gameObject.transform.localScale.x;
 			var otherscale = c.gameObject.transform.localScale.x;
+            
 
 			if (thisscale > otherscale)
 			{

@@ -2613,15 +2613,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000012623680536, guid: fff0bcb1defd2af46a83c4b28e79b570, type: 2}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013188785760, guid: fff0bcb1defd2af46a83c4b28e79b570,
         type: 2}
@@ -3112,14 +3112,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1274420207}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58a4b4c0212dec84f9e4847470c8dcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabOne: {fileID: 1000011188568776, guid: ea95d5661a6f62e4f8af079586e1a3c4, type: 2}
-  MinSizePrefabOne: 0.01
-  MaxSizePrefabOne: 6
+  MinSizePrefabOne: 0.1
+  MaxSizePrefabOne: 8
   NumberOfItemsToSpawn: 60
   MinX: -60
   MinY: -55
