@@ -5,18 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collection
-<<<<<<< HEAD
   - Wall
   - Planet
-=======
   - Goal
   - SpawnedBlocks
->>>>>>> ca52fc903757eac2e38fa6a0da7d4bc8705787aa
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
   - Water
   - UI
   - 
