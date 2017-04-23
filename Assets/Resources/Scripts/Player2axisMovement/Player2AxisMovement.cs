@@ -64,6 +64,13 @@ public class Player2AxisMovement : MonoBehaviour
 
 	public GameObject burstPrefab;
 
+    public void comethit()
+    {
+        var x = this.transform.localScale.x * .5f;
+        x = Mathf.Max(x, .4f);
+        this.transform.localScale = new Vector3(x, x, x);
+    }
+
     public void absorb(float x)
     {
         var newx = this.transform.localScale.x + (x * .5f);
