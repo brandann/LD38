@@ -27,7 +27,6 @@ public class BurstBehavior : MonoBehaviour {
         mSpeed = Random.Range (RandomSpeedRange[0], RandomSpeedRange[1]);
 		mDecay = Random.Range (RandomDecayRate[0], RandomDecayRate[1]);
 		mDecay = Mathf.Clamp(mDecay, .001f, .999f);
-		
     }
     
     void Update ()
