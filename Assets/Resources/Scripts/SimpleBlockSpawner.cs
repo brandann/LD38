@@ -16,6 +16,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	public float MaxSizePrefabOne;
 	[RangeAttribute(1,600)]
 	public float SpawnRateSecondsPrefabOne;
+    private float SpawnRateDurationPrefabOne;
     public float distancemultiplier1;
 	private float _lastSpawnTimePrefabOne;
 	[Space(10)]
@@ -76,7 +77,7 @@ public class SimpleBlockSpawner : MonoBehaviour {
 		_lastSpawnTimePrefabTwo	= 
 		_lastSpawnTimePrefabThree =
 		_lastSpawnTimePrefabFour = Time.timeSinceLevelLoad;
-
+        SpawnRateDurationPrefabOne = SpawnRateSecondsPrefabOne + Random.Range(SpawnRateSecondsPrefabOne * .8f, SpawnRateSecondsPrefabOne * 1.2f);
 
 	}
 
@@ -124,10 +125,11 @@ public class SimpleBlockSpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabOne > SpawnRateSecondsPrefabOne )
+        if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabOne > SpawnRateDurationPrefabOne)
 		{
             SpawnFromCircleToPlayer(PrefabOne, distancemultiplier1);
 			_lastSpawnTimePrefabOne = Time.timeSinceLevelLoad;
+            SpawnRateDurationPrefabOne = SpawnRateSecondsPrefabOne + Random.Range(SpawnRateSecondsPrefabOne * .8f, SpawnRateSecondsPrefabOne * 1.2f);
 		}
 
 		if (Time.timeSinceLevelLoad - _lastSpawnTimePrefabTwo > SpawnRateSecondsPrefabTwo)
