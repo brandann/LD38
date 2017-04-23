@@ -61,6 +61,5 @@ public class BurstManager : MonoBehaviour {
 		mColor = burstColor;
 		mBurstScale = burstScale;
 		mBurstReady = true;
-		print("burst Scale:" + mBurstScale);
 	}
 }

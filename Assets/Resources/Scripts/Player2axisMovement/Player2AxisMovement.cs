@@ -99,18 +99,24 @@ public class Player2AxisMovement : MonoBehaviour
         burst.MakeBurst(10, Color.white, this.transform.position, this.transform.localScale.x);
     }
 
+
     public void absorb(float x)
     {
+        
         var newx = this.transform.localScale.x + (x * PlanetAbsordFactor);
         var s = Mathf.Max(x, 1);
         _score += (int) s;
         this.transform.localScale = new Vector3(newx, newx, newx);
 
+        if (win)
+            return;
+
         if (this.transform.localScale.x >= SizeToWin)
         {
-            if(!win)
-                OnPlayerLevelup();
+            OnPlayerLevelup();
+            win = true;
         }
+
     }
 
     public void OnLevelUp(int lvl)
@@ -122,8 +128,6 @@ public class Player2AxisMovement : MonoBehaviour
         }
     }
     
-
-
     IEnumerator StartOverRoutine()
     {
         // WAIT FOR THE MOD DURATION TO FINISH
