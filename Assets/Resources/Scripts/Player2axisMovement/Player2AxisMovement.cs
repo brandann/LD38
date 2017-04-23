@@ -77,7 +77,13 @@ public class Player2AxisMovement : MonoBehaviour
     {
         // WAIT FOR THE MOD DURATION TO FINISH
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("MoonEatMoon");
+        this.transform.localScale = new Vector3(1, 1, 1);
+        var l = GameObject.FindGameObjectsWithTag("SpawnedBlocks");
+        foreach(GameObject p in l)
+        {
+            Destroy(p);
+        }
+        //SceneManager.LoadScene("MoonEatMoon");
         yield return null;
     }
 

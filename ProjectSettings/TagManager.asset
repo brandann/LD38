@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collection
   - Goal
+  - SpawnedBlocks
   layers:
   - Default
   - TransparentFX
