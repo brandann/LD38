@@ -61,7 +61,9 @@ public class Planet : MonoBehaviour
                     var go = Instantiate(burstPrefab);
                     go.transform.position = this.transform.position;
                     var burst = go.GetComponent<BurstManager>();
-                    burst.MakeBurst(20, Color.green, this.transform.position, this.transform.localScale.x);
+                    var green = Color.green;
+                    green.a = .5f;
+                    burst.MakeBurst(20, green, this.transform.position, this.transform.localScale.x);
 
                     Destroy(this.gameObject);
                 }
