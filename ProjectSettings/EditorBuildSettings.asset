@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/ScaleSquares.unity
   - enabled: 1
     path: Assets/MoonEatMoon.unity
+  - enabled: 1
+    path: Assets/WinScreen.unity

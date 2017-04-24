@@ -75,7 +75,15 @@ public class CameraManager : MonoBehaviour {
             }
         }
         else
-            SceneManager.LoadScene("Main");
+            StartCoroutine("LoadWinScreenRoutine"); 
+    }
+
+    IEnumerator LoadWinScreenRoutine()
+    {
+        // WAIT FOR THE MOD DURATION TO FINISH
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("WinScreen");
+        yield return null;
     }
 
     // COROUTINE FOR SPEED MOD
