@@ -9,10 +9,12 @@ TagManager:
   - Planet
   - Goal
   - SpawnedBlocks
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
+  - 
   - Water
   - UI
   - 

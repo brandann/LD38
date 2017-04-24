@@ -42,11 +42,18 @@ public class WholeMapSpawner : MonoBehaviour {
 	private CameraManager _cameraManager;
 
 	private enum BufferSide { Left, Right, Up, Down };
+	private List<GameObject> _spawnPoints;
+
+	private int _lastSpawnPointUsed;
 
 	// Use this for initialization
 	void Start() {
 
+
+		_spawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("SpawnPoint"));
+		
 		CreateLevels();
+
 		
 
 		_cameraManager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
@@ -113,12 +120,12 @@ public class WholeMapSpawner : MonoBehaviour {
 
 	void PopulateInitialWorldAtOnce()
 	{
-		BufferSide currSide;
-
 		for (int i = 0; i < NumberOfItemsToSpawn; ++i)
 		{
-			currSide = (BufferSide)(i % 4);
-			SpawnPrefab(PrefabOne, currSide);
+			var go = SpawnPrefab(PrefabOne);
+			GiveRandomScale(go,MinSizePrefabOne, MaxSizePrefabOne);
+			GiveRandomSpeed(go);
+			
 		}
 	}
 
@@ -127,9 +134,10 @@ public class WholeMapSpawner : MonoBehaviour {
 		while (_totalContinousPrefabsSpawned < MaxContinuousPrefabToSpawn)
 		{
 			yield return new WaitForSeconds(SpawnTimeSecondsContinuousPrefab);
-			GameObject go = SpawnPrefabAwayFromPlayer(ContinuousPrefab, BUFFER_SIZE);
-			GiveRandomSpeed(go);
+			GameObject go = SpawnPrefab(ContinuousPrefab);
 			GiveRandomScale(go, MinContinuousScale, MaxContinuousScale);
+			//GiveRandomSpeed(go);
+			//GiveRandomScale(go, MinContinuousScale, MaxContinuousScale);
 			_totalContinousPrefabsSpawned++;
 
 		}
@@ -170,7 +178,11 @@ public class WholeMapSpawner : MonoBehaviour {
 
 	void GiveRandomSpeed(GameObject go)
 	{
+		float rand = Random.Range(0f, 2.1f);
+		bool flip = rand > 1;			
+		
 		float randomSpeed = Random.Range(MinSpeed, MaxSpeed);
+		randomSpeed = (flip) ? randomSpeed : -1 * randomSpeed;
 		go.GetComponent<Rigidbody2D>().velocity = new Vector3(randomSpeed, randomSpeed, 0);
 	}
 
@@ -179,6 +191,48 @@ public class WholeMapSpawner : MonoBehaviour {
 		float randomScale = Random.Range(minScale, maxScale);
 		go.transform.localScale = new Vector3(randomScale, randomScale, 1);
 	}
+
+	GameObject SpawnPrefab(GameObject prefab)
+	{
+		var location = GetNextSpawnLocation();	
+
+		var go = (GameObject)Object.Instantiate(prefab, location, Quaternion.identity);
+		GiveRandomSpeed(go);
+		GiveRandomScale(go,MinContinuousScale,MaxContinuousScale);
+		return go;		
+	}
+
+	Vector3 GetNextSpawnLocation()
+	{
+		float distToPlayer = 0;
+		GameObject nextSpawn = null;
+
+		for(int i = _lastSpawnPointUsed % _spawnPoints.Count; i < _spawnPoints.Count; i++)
+		{
+			var possiblePoint = _spawnPoints[i];
+			distToPlayer = (possiblePoint.transform.position - _player.transform.position).magnitude;
+			if(distToPlayer > BUFFER_SIZE)
+			{
+				nextSpawn = possiblePoint;
+				break;
+			}
+		}
+		if (nextSpawn != null)
+		{
+			_lastSpawnPointUsed++;
+			var original = nextSpawn.transform.position;
+			var randVec = Random.insideUnitCircle;
+			randVec *= (nextSpawn.transform.localScale.x /2) ;
+			return (original + new Vector3(randVec.x, randVec.y, 1));
+		}
+		else
+		{
+			Debug.LogError("no spawn points far enough?");
+			return new Vector3(0, 0, 0);
+		}
+	}
+
+
 
 
 	void SpawnPrefab(GameObject prefab, BufferSide side)
@@ -213,8 +267,8 @@ public class WholeMapSpawner : MonoBehaviour {
 			MinSizePrefabOne = .01f,
 			MaxSizePrefabOne = 2f,
 			NumberOfItemsToSpawn = 20,
-			MinSpeed = -4f,
-			MaxSpeed = 2f,
+			MinSpeed = 4f,
+			MaxSpeed = 6f,
 			SpawnTimeSecondsContinuousPrefab = 2,
 			MaxContinuousPrefabToSpawn = 20,
 			MinContinuousScale = 0.2f,
@@ -226,8 +280,8 @@ public class WholeMapSpawner : MonoBehaviour {
 			MinSizePrefabOne = .01f,
 			MaxSizePrefabOne = 4f,
 			NumberOfItemsToSpawn = 40,
-			MinSpeed = -4f,
-			MaxSpeed = 4f,
+			MinSpeed = 4f,
+			MaxSpeed = 6f,
 			SpawnTimeSecondsContinuousPrefab = 2,
 			MaxContinuousPrefabToSpawn = 20,
 			MinContinuousScale = 0.2f,
@@ -239,8 +293,8 @@ public class WholeMapSpawner : MonoBehaviour {
 			MinSizePrefabOne = .8f,
 			MaxSizePrefabOne = 8f,
 			NumberOfItemsToSpawn = 40,
-			MinSpeed = -4f,
-			MaxSpeed = 4f,
+			MinSpeed = 6f,
+			MaxSpeed = 8f,
 			SpawnTimeSecondsContinuousPrefab = 2,
 			MaxContinuousPrefabToSpawn = 20,
 			MinContinuousScale = 0.8f,
@@ -252,8 +306,8 @@ public class WholeMapSpawner : MonoBehaviour {
 			MinSizePrefabOne = .9f,
 			MaxSizePrefabOne = 10f,
 			NumberOfItemsToSpawn = 45,
-			MinSpeed = -5f,
-			MaxSpeed = 5f,
+			MinSpeed = 8f,
+			MaxSpeed = 10f,
 			SpawnTimeSecondsContinuousPrefab = 2,
 			MaxContinuousPrefabToSpawn = 20,
 			MinContinuousScale = .9f,
